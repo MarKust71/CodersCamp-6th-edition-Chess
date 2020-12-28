@@ -4,11 +4,12 @@ module.exports = {
     mode: 'development',
     entry: './src/main.js',
     output: {
-        path: path.resolve(__dirname),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
     },
     resolve: {
         extensions: ['.js'],
+        fallback: { path: require.resolve('path-browserify') },
     },
     module: {
         rules: [
@@ -18,5 +19,8 @@ module.exports = {
                 exclude: /node_modules/,
             },
         ],
+    },
+    devServer: {
+        publicPath: '/',
     },
 };
