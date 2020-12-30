@@ -72,8 +72,12 @@ class King extends Piece {
     
     willBeCheck(piece, x, y){
         board[piece.x][piece.y] = undefined;
+        const pieceOnDestination = board[x][y]
         board[x][y] = piece;
-        return this.isSafe(this.x, this.y);
+        const willBeCheck = this.isSafe(this.x, this.y);
+        board[piece.x][piece.y] = piece;
+        board[x][y] = pieceOnDestination;
+        return willBeCheck
     }
 
     validateInput(x,y,side){
