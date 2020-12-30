@@ -6,6 +6,7 @@ test("King construction with correct input.", ()=>{
     const whiteKing = new King(3,4,"white");
     const defaultBlackKing = new King(-1,-1,"black");
     const blackKing = new King(3,4,"black");
+    const kingStringCoord = new King("5","6","white");
 
     expect(defaultWhiteKing).toEqual(expect.objectContaining({
         x: 7,
@@ -33,6 +34,13 @@ test("King construction with correct input.", ()=>{
         y: 4,
         name: "king",
         side: "black"
+    }))
+    
+    expect(kingStringCoord).toEqual(expect.objectContaining({
+        x: 5,
+        y: 6,
+        name: "king",
+        side: "white"
     }))
 })
 
