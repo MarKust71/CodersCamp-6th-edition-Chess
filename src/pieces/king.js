@@ -30,7 +30,7 @@ class King extends Piece {
                     let piece = this.pieceOnSquare(expectedX, expectedY); 
 
                     if(piece){
-                        piece.side === "black" && this.isSafe(expectedX, expectedY) ? 0 : possibleMoves.push({x: expectedX, y: expectedY});
+                        piece.side !== this.side && this.isSafe(expectedX, expectedY) ? 0 : possibleMoves.push({x: expectedX, y: expectedY});
                     } else if(this.isSafe(expectedX, expectedY)) possibleMoves.push({x: expectedX, y: expectedY});
                 } else continue
             }
