@@ -12,5 +12,5 @@ class Knight extends Piece {
         return possibleMoves;
     }
 }
-
+console.log('czy dziala?');
 export default Knight;
