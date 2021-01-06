@@ -10,6 +10,7 @@ const touched = (e) => {
     for (let el of possibleMoves) {
         document.getElementById(el).className += ` possibleMove`;
         document.getElementById(el).addEventListener('click', (e) => {
+
             board[x][y].move(e.currentTarget.id);
             for (let x = 0; x < board.length; x++) {
                 for (let y = 0; y < board[x].length; y++) {

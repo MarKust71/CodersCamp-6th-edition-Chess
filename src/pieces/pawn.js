@@ -6,12 +6,17 @@ class Pawn extends Piece {
         this.name = 'pawn';
         this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
     }
+
     findLegalMoves() {
         // console.log(this.x, this.y);
         const possibleMoves = [];
-        if (this.side == 'white') {
-            this.x - 1 > 0 && possibleMoves.push(`${this.x - 1},${this.y}`);
-            this.x - 2 > 0 && possibleMoves.push(`${this.x - 2},${this.y}`);
+
+        if (this.side === 'white') {
+            this.x === 6 && (possibleMoves.push(`${this.x - 1},${this.y}`) && possibleMoves.push(`${this.x - 2},${this.y}`));
+            (this.x < 6 && this.x > 0) && possibleMoves.push(`${this.x - 1},${this.y}`);
+        } else if (this.side === 'black'){
+            this.x === 1 && (possibleMoves.push(`${this.x + 1},${this.y}`) && possibleMoves.push(`${this.x + 2},${this.y}`));
+            (this.x > 1 && this.x < 7) && possibleMoves.push(`${this.x + 1},${this.y}`);
         }
         return possibleMoves;
     }
