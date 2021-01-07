@@ -23,13 +23,16 @@ class Piece {
 
     findLegalMoves() {}
 
-    pieceOnSquare(x,y){
+    pieceOnSquare(x, y) {
         //Returns piece which is on the square or false if there is none
-        return board[x][y] ? board[x][y] : false 
+        if (board[x] && board[x][y]) {
+            return board[x][y];
+        }
+        return false;
     }
 
-    hasLineMovement(){
-        return ["queen", "rook", "bishop"].includes(this.name) ? true : false;
+    hasLineMovement() {
+        return ['queen', 'rook', 'bishop'].includes(this.name) ? true : false;
     }
 }
 

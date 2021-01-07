@@ -18,25 +18,27 @@ class King extends Piece {
         }
     }
 
-    findLegalMoves() {
+    findLegalMoves(canMove = true) {
         const possibleMoves = [];
 
         for (let x = -1; x <= 1; x++) {
+            let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;
             for (let y = -1; y <= 1; y++) {
-                let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;
                 let expectedY = this.y + y >= 0 && this.y + y < 8 ? this.y + y : undefined;
 
-                if (expectedX && expectedY) {
+                if (typeof expectedX === 'number' && typeof expectedY === 'number') {
                     let piece = this.pieceOnSquare(expectedX, expectedY);
+                    let isDestinationSafe = canMove ? this.isSafe(expectedX, expectedY) : true;
 
                     if (piece) {
-                        piece.side !== this.side && this.isSafe(expectedX, expectedY)
+                        piece.side !== this.side && isDestinationSafe
                             ? 0
-                            : possibleMoves.push({ x: expectedX, y: expectedY });
-                    } else if (this.isSafe(expectedX, expectedY)) possibleMoves.push({ x: expectedX, y: expectedY });
+                            : possibleMoves.push(`${expectedX},${expectedY}`);
+                    } else if (isDestinationSafe) possibleMoves.push(`${expectedX},${expectedY}`);
                 } else continue;
             }
         }
+
         return possibleMoves;
     }
 
@@ -54,15 +56,15 @@ class King extends Piece {
         if (pieceOnSquare) board[x][y] = undefined;
 
         loopRow: for (const row of board) {
-            for (const square of row) {
-                const piece = this.pieceOnSquare(row, square);
-                if (piece.side !== enemySide) continue;
-                const moves = piece.findLegalMoves();
+            for (const piece of row) {
+                if (piece && piece.side === enemySide) {
+                    const moves = piece.findLegalMoves(false);
 
-                for (const coords in moves) {
-                    if (coords.x === x && coords.y === y) {
-                        isSafe = false;
-                        break loopRow;
+                    for (const coords of moves) {
+                        if (coords[0] == x && coords[2] == y) {
+                            isSafe = false;
+                            break loopRow;
+                        }
                     }
                 }
             }
