@@ -9,6 +9,7 @@ class King extends Piece {
         this.name = 'king';
         this.display = `<i class="fas fa-chess-king ${side}"></i>`;
         //fontawesome king
+      
         if (x == -1 || y == -1) {
             this.x = side === 'white' ? 7 : 0;
             this.y = 4;
