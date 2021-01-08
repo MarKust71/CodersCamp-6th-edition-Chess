@@ -6,7 +6,9 @@ const touched = (e) => {
     if (!board[x][y]) {
         return;
     }
+
     const possibleMoves = board[x][y].findLegalMoves();
+    console.log(possibleMoves);
     for (let el of possibleMoves) {
         document.getElementById(el).className += ` possibleMove`;
         document.getElementById(el).addEventListener('click', (e) => {
