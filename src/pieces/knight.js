@@ -8,7 +8,6 @@ class Knight extends Piece {
     }
     findLegalMoves() {
         const possibleMoves = [];
-            if (this.side == 'white') {
                 this.x - 2 > -1 && this.y - 1 > -1 && possibleMoves.push(`${this.x - 2},${this.y - 1}`);
                 this.x - 2 > -1 && this.y + 1 < 8 && possibleMoves.push(`${this.x - 2},${this.y + 1}`);
                 this.x + 2 < 8 && this.y + 1 < 8 && possibleMoves.push(`${this.x + 2},${this.y + 1}`);
@@ -18,8 +17,6 @@ class Knight extends Piece {
                 this.x - 1 > -1 && this.y + 2 < 8 && possibleMoves.push(`${this.x - 1},${this.y + 2}`);
                 this.x + 1 < 8 && this.y + 2 < 8 && possibleMoves.push(`${this.x + 1},${this.y + 2}`);
                 this.x + 1 < 8 && this.y - 2 > -1 && possibleMoves.push(`${this.x + 1},${this.y - 2}`);
-
-            }
             return possibleMoves;
     }
 }
