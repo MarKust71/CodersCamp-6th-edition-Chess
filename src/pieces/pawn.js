@@ -5,21 +5,37 @@ class Pawn extends Piece {
         super(x, y, side);
         this.name = 'pawn';
         this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
+        this.direction = this.side === 'white' ? -1 : 1;
     }
 
     findLegalMoves() {
-        // console.log(this.x, this.y);
+        // const x = this.x;
+        // const y = this.y;
+        const v = this.direction;
         const possibleMoves = [];
+        const enemy = this.pieceOnSquare(`${this.x + v}`, `${this.y}`);
+        const enemyByTwo = this.pieceOnSquare(`${this.x + v * 2}`, `${this.y}`);
+        const ownInFront = this.pieceOnSquare(`${this.x + v}`, `${this.y}`);
+        const firstMoveByTwo = `${this.x + v * 2},${this.y}`;
+        const firstMoveByOne = `${this.x + v},${this.y}`;
 
-        if (this.side === 'white') {
-            this.x === 6 && (possibleMoves.push(`${this.x - 1},${this.y}`) && possibleMoves.push(`${this.x - 2},${this.y}`));
-            (this.x < 6 && this.x > 0) && possibleMoves.push(`${this.x - 1},${this.y}`);
-        } else if (this.side === 'black'){
-            this.x === 1 && (possibleMoves.push(`${this.x + 1},${this.y}`) && possibleMoves.push(`${this.x + 2},${this.y}`));
-            (this.x > 1 && this.x < 7) && possibleMoves.push(`${this.x + 1},${this.y}`);
+        if (!(enemy || ownInFront)) {
+            if (this.x === (this.side === 'white' ? 6 : 1)) {
+                if (enemyByTwo) {
+                    possibleMoves.push(firstMoveByOne);
+                } else {
+                    possibleMoves.push(firstMoveByOne);
+                    possibleMoves.push(firstMoveByTwo);
+                }
+            } else {
+                if (this.x !== (this.side === 'white' ? 0 : 7)) {
+                    possibleMoves.push(firstMoveByOne);
+                }
+            }
         }
         return possibleMoves;
     }
+
     promote() {}
     enPassant() {}
 }

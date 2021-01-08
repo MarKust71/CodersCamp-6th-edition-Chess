@@ -22,6 +22,14 @@ class Piece {
     }
 
     findLegalMoves() {}
+
+    pieceOnSquare(x, y) {
+        //Returns piece which is on the square or false if there is none
+        if (board[x] && board[x][y]) {
+            return board[x][y];
+        }
+        return false;
+    }
 }
 
 export default Piece;

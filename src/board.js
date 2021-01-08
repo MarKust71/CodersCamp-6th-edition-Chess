@@ -14,4 +14,6 @@ for (let i = 0; i < 8; i++) {
     board[pawn.x][pawn.y] = pawn;
 }
 
+let pawn = new Pawn(5, 1, 'white');
+board[pawn.x][pawn.y] = pawn;
 export default board;
