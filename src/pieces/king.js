@@ -1,3 +1,4 @@
+import board from '../board';
 import Piece from './piece';
 
 class King extends Piece {
@@ -8,25 +9,80 @@ class King extends Piece {
         this.name = 'king';
         this.display = `<i class="fas fa-chess-king ${side}"></i>`;
         //fontawesome king
-
-        if (side === 'white') {
-            x !== -1 ? (this.x = x) : (this.x = 7);
-            y !== -1 ? (this.y = y) : (this.y = 4);
+      
+        if (x == -1 || y == -1) {
+            this.x = side === 'white' ? 7 : 0;
+            this.y = 4;
         } else {
-            x !== -1 ? (this.x = x) : (this.x = 0);
-            y !== -1 ? (this.y = y) : (this.y = 4);
+            this.x = parseInt(x);
+            this.y = parseInt(y);
         }
     }
-    findLegalMoves() {
+
+    findLegalMoves(canMove = true) {
         const possibleMoves = [];
 
         for (let x = -1; x <= 1; x++) {
+            let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;
             for (let y = -1; y <= 1; y++) {
-                possibleMoves.push({ x: this.x + x, y: this.y + y });
+                let expectedY = this.y + y >= 0 && this.y + y < 8 ? this.y + y : undefined;
+
+                if (typeof expectedX === 'number' && typeof expectedY === 'number') {
+                    let piece = this.pieceOnSquare(expectedX, expectedY);
+                    let isDestinationSafe = canMove ? this.isSafe(expectedX, expectedY) : true;
+
+                    if (piece) {
+                        piece.side !== this.side && isDestinationSafe
+                            ? 0
+                            : possibleMoves.push(`${expectedX},${expectedY}`);
+                    } else if (isDestinationSafe) possibleMoves.push(`${expectedX},${expectedY}`);
+                } else continue;
             }
         }
 
         return possibleMoves;
+    }
+
+    isSafe(x, y) {
+        /*
+         ** Need some way to check if the piece is backed (covered) by some other figure
+         ** can't do it with this implementation of findLegalMoves
+         */
+
+        // Doing this dirty way by removing piece from board and then checking legal moves
+        const enemySide = this.side === 'white' ? 'black' : 'white';
+        const pieceOnSquare = board[x][y];
+        let isSafe = true;
+
+        if (pieceOnSquare) board[x][y] = undefined;
+
+        loopRow: for (const row of board) {
+            for (const piece of row) {
+                if (piece && piece.side === enemySide) {
+                    const moves = piece.findLegalMoves(false);
+
+                    for (const coords of moves) {
+                        if (coords[0] == x && coords[2] == y) {
+                            isSafe = false;
+                            break loopRow;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (pieceOnSquare) board[x][y] = pieceOnSquare;
+        return isSafe;
+    }
+
+    willBeCheck(piece, x, y) {
+        board[piece.x][piece.y] = undefined;
+        const pieceOnDestination = board[x][y];
+        board[x][y] = piece;
+        const willBeCheck = this.isSafe(this.x, this.y);
+        board[piece.x][piece.y] = piece;
+        board[x][y] = pieceOnDestination;
+        return willBeCheck;
     }
 
     validateInput(x, y, side) {
