@@ -22,10 +22,15 @@ const kingBlack = new King(-1, -1, 'black');
 board[kingWhite.x][kingWhite.y] = kingWhite;
 board[kingBlack.x][kingBlack.y] = kingBlack;
 
-let rook = new Rook(7, 0, 'white');
-board[rook.x][rook.y] = rook;
-rook = new Rook(7, 7, 'white');
-board[rook.x][rook.y] = rook;
+let rookWhite = new Rook(7, 0, 'white');
+board[rookWhite.x][rookWhite.y] = rookWhite;
+rookWhite = new Rook(7, 7, 'white');
+board[rookWhite.x][rookWhite.y] = rookWhite;
+
+let rookBlack = new Rook(0, 0, 'black');
+board[rookBlack.x][rookBlack.y] = rookBlack;
+rookBlack = new Rook(0, 7, 'black');
+board[rookBlack.x][rookBlack.y] = rookBlack;
 
 let knightWhite = new Knight(7, 1, 'white');
 board[knightWhite.x][knightWhite.y] = knightWhite;
