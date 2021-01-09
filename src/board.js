@@ -30,13 +30,14 @@ board[rook.x][rook.y] = rook;
 rook = new Rook(7, 7, 'white');
 board[rook.x][rook.y] = rook;
 
-//Knight - white - rozstawienie
+let knightWhite = new Knight(7, 1, 'white');
+board[knightWhite.x][knightWhite.y] = knightWhite;
+knightWhite = new Knight(7, 6, 'white');
+board[knightWhite.x][knightWhite.y] = knightWhite;
 
-let knight = new Knight(7, 1, 'white');
-board[knight.x][knight.y] = knight;
-knight = new Knight(7, 6, 'white');
-board[knight.x][knight.y] = knight;
-
-// Knight - white - rozstawienie KONIEC
+let knightBlack = new Knight(0, 1, 'black');
+board[knightBlack.x][knightBlack.y] = knightBlack;
+knightBlack = new Knight(0, 6, 'black');
+board[knightBlack.x][knightBlack.y] = knightBlack;
 
 export default board;
