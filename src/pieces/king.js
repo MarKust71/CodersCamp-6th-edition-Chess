@@ -7,9 +7,8 @@ class King extends Piece {
         this.validateInput(x, y, side);
 
         this.name = 'king';
-        this.display = `<i class="fas fa-chess-king ${side}"></i>`;
-        //fontawesome king
-      
+        this.display = `<i class="fas fa-chess-king ${side}"></i>`; //fontawesome king
+
         if (x == -1 || y == -1) {
             this.x = side === 'white' ? 7 : 0;
             this.y = 4;
@@ -45,11 +44,9 @@ class King extends Piece {
 
     isSafe(x, y) {
         /*
-         ** Need some way to check if the piece is backed (covered) by some other figure
-         ** can't do it with this implementation of findLegalMoves
+         ** Checks if the piece or square is backed (covered) by some other figure.
+         ** Doing this by removing piece from board and then checking legal moves of all enemy pieces.
          */
-
-        // Doing this dirty way by removing piece from board and then checking legal moves
         const enemySide = this.side === 'white' ? 'black' : 'white';
         const pieceOnSquare = board[x][y];
         let isSafe = true;
