@@ -31,9 +31,8 @@ class King extends Piece {
                     let isDestinationSafe = canMove ? this.isSafe(expectedX, expectedY) : true;
 
                     if (piece) {
-                        piece.side !== this.side && isDestinationSafe
-                            ? 0
-                            : possibleMoves.push(`${expectedX},${expectedY}`);
+                        if (piece.side !== this.side && isDestinationSafe)
+                            possibleMoves.push(`${expectedX},${expectedY}`);
                     } else if (isDestinationSafe) possibleMoves.push(`${expectedX},${expectedY}`);
                 } else continue;
             }
