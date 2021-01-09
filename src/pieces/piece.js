@@ -31,11 +31,9 @@ class Piece {
         return false;
     }
 
-
     hasLineMovement() {
         return ['queen', 'rook', 'bishop'].includes(this.name) ? true : false;
     }
-
 }
 
 export default Piece;
