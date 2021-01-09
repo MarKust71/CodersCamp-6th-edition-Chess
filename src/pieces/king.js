@@ -55,12 +55,21 @@ class King extends Piece {
         loopRow: for (const row of board) {
             for (const piece of row) {
                 if (piece && piece.side === enemySide) {
-                    const moves = piece.findLegalMoves(false);
+                    if (piece.name === 'pawn') {
+                        const direction = piece.side === 'white' ? -1 : 1;
 
-                    for (const coords of moves) {
-                        if (coords[0] == x && coords[2] == y) {
+                        if (x === piece.x + direction && (piece.y + 1 === y || piece.y - 1 === y)) {
                             isSafe = false;
                             break loopRow;
+                        }
+                    } else {
+                        const moves = piece.findLegalMoves(false);
+
+                        for (const coords of moves) {
+                            if (coords[0] == x && coords[2] == y) {
+                                isSafe = false;
+                                break loopRow;
+                            }
                         }
                     }
                 }
