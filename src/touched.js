@@ -16,7 +16,6 @@ const touched = (e) => {
     }
 
     squaresState = board[x][y].findLegalMoves();
-    console.log(squaresState);
 
     for (let el of squaresState) {
         if (!document.getElementById(el).classList.contains(POSSIBLE_MOVES_CLASS)) {
@@ -27,12 +26,10 @@ const touched = (e) => {
                     for (let y = 0; y < board[x].length; y++) {
                         document.getElementById(`${x},${y}`).classList.remove(POSSIBLE_MOVES_CLASS);
 
-                        //TODO: rozwiązać tematykę event listenerów sprytniej, przenosząc każdy do osobnego pliku
                         let old_element = document.getElementById(`${x},${y}`);
                         let new_element = old_element.cloneNode(true);
                         old_element.parentNode.replaceChild(new_element, old_element);
 
-                        // document.getElementById(`${x},${y}`).removeEventListener('click');
                         document.getElementById(`${x},${y}`).addEventListener('click', (e) => {
                             touched(e);
                         });
