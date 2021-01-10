@@ -38,7 +38,7 @@ class King extends Piece {
             }
         }
 
-        possibleMoves = canMove ? [...possibleMoves, ...this.detectCastle()] : 0;
+        possibleMoves = canMove ? [...possibleMoves, ...this.detectCastle()] : possibleMoves;
         return possibleMoves;
     }
 
