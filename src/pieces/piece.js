@@ -21,6 +21,8 @@ class Piece {
         document.getElementById(id).innerHTML = this.display;
     }
 
+    promote() {}
+
     findLegalMoves() {}
 
     pieceOnSquare(x, y) {
@@ -31,11 +33,9 @@ class Piece {
         return false;
     }
 
-
     hasLineMovement() {
         return ['queen', 'rook', 'bishop'].includes(this.name) ? true : false;
     }
-
 }
 
 export default Piece;
