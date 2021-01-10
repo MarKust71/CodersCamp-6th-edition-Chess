@@ -6,6 +6,7 @@ class Queen extends Piece {
         this.name = 'queen';
         this.display = `<i class="fas fa-chess-queen ${side}"></i>`; //fontawesome queen
     }
+    // to jest testowy komentarz
     findLegalMoves() {
         const possibleMoves = [];
 
