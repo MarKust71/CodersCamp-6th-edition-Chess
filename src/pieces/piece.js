@@ -5,10 +5,12 @@ class Piece {
         this.x = x;
         this.y = y;
         this.side = side; //'black' or 'white'
+        this.hasMoved = false;
     }
     move(id) {
         const newX = Number(id[0]);
         const newY = Number(id[2]);
+        this.hasMoved = true;
 
         //clearing previous place
         board[this.x][this.y] = null;
