@@ -12,6 +12,11 @@ class Piece {
         const newY = Number(id[2]);
         this.hasMoved = true;
 
+        // Need to think about better way of doing this.
+        if (this.name === 'king' && Math.abs(this.y - newY) > 1) {
+            board[newX][this.y < newY ? 7 : 0].move(`${newX},${newY === 6 ? newY - 1 : newY + 1}`);
+        }
+
         //clearing previous place
         board[this.x][this.y] = null;
         document.getElementById(`${this.x},${this.y}`).innerHTML = '';
