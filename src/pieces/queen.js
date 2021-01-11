@@ -39,16 +39,17 @@ class Queen extends Piece {
             let xx = this.x+ dx*i;
             let yy = this.y+ dy*i;
 //         console.log('stat',i,':',board[xx][yy],'stat', this.getSquareStatus(xx,yy));
+//            console.log('king: ',this.isKingSafe('white'));
             if(xx>=0 && xx<8 && yy>=0 && yy<8){
-                if(this.getSquareStatus(xx,yy)==0){
+                if(this.getSquareStatus(xx,yy)==0){         // empty square
                     possibleMoves.push(`${xx},${yy}`);
-                }else if(this.getSquareStatus(xx,yy)==2){
+                }else if(this.getSquareStatus(xx,yy)==2){   // enemy piece
                     possibleMoves.push(`${xx},${yy}`);
                     break;
-                }else{
+                }else{                                      // my piece
                     break;
                 }
-            }else{
+            }else{                                          // out of board
                 break;
             }     
         }
@@ -56,7 +57,8 @@ class Queen extends Piece {
 
     getSquareStatus(x,y){
         let status = 0;         //empty square
-        let piece = this.pieceOnSquare(`${x}`, `${y}`);
+       // let piece = this.pieceOnSquare(`${x}`, `${y}`);
+        let piece = this.pieceOnSquare(x,y);
        if(piece){
             if(piece.side === this.side){
                 status = 1;     // my piece
@@ -65,6 +67,13 @@ class Queen extends Piece {
             }  
         } 
         return status;
+    }
+
+    isKingSafe(side){
+        // tu mam problem, bo nie ma jak się dostać do króla
+        const king = board.kingWhite;   // to jest źle, bo board nie jest klasą
+            //const kingBlack 
+        return king.isSafe(king.x, king.y);
     }
 }
 
