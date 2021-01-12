@@ -8,12 +8,8 @@ const touched = (e) => {
     }
 
     const possibleMoves = board[x][y].findLegalMoves();
-    console.log(possibleMoves);
     const possibleMoveClass = ` possibleMove`;
     for (let el of possibleMoves) {
-        console.log(document.getElementById(el).className);
-        console.log(document.getElementById(el).className.includes(possibleMoveClass));
-        console.log(possibleMoveClass);
         if (!document.getElementById(el).className.includes(possibleMoveClass)) {
             document.getElementById(el).className += possibleMoveClass;
             document.getElementById(el).addEventListener('click', (e) => {
