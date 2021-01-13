@@ -39,7 +39,7 @@ class Queen extends Piece {
             let xx = this.x+ dx*i;
             let yy = this.y+ dy*i;
 //         console.log('stat',i,':',board[xx][yy],'stat', this.getSquareStatus(xx,yy));
-//            console.log('king: ',this.isKingSafe('white'));
+   console.log('king: ',this.isKingSafe('white'));
             if(xx>=0 && xx<8 && yy>=0 && yy<8){
                 if(this.getSquareStatus(xx,yy)==0){         // empty square
                     possibleMoves.push(`${xx},${yy}`);
@@ -60,7 +60,9 @@ class Queen extends Piece {
        // let piece = this.pieceOnSquare(`${x}`, `${y}`);
         let piece = this.pieceOnSquare(x,y);
        if(piece){
-            if(piece.side === this.side){
+            if(piece === "undefined"){
+                status = 0;
+            }else if(piece.side === this.side){
                 status = 1;     // my piece
             }else{
                 status = 2;     // enemy piece
@@ -70,10 +72,25 @@ class Queen extends Piece {
     }
 
     isKingSafe(side){
-        // tu mam problem, bo nie ma jak się dostać do króla
-        const king = board.kingWhite;   // to jest źle, bo board nie jest klasą
+        // tu mam problem, bo nie ma jak się dostać do króla  
+        //const king = board.kingWhite;   // to jest źle, bo board nie jest klasą
             //const kingBlack 
+        let king = this.getKing(side);
         return king.isSafe(king.x, king.y);
+    }
+
+    getKing(side){
+        //const mySide = this.side === 'black' ? 'black' : 'white';
+        loopRow: for (const row of board) {
+            for (const piece of row) {
+                if (piece && piece.side ===side && piece.name === 'king') {
+                    const king = piece;
+                    break;
+
+                }
+            }
+        }
+        return king
     }
 }
 
