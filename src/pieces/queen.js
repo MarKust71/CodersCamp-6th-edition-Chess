@@ -20,77 +20,86 @@ class Queen extends Piece {
         const possibleMoves = [];
         const thisX = this.x;
         const thisY = this.y;
-        
-        this.checkLine(1,0,possibleMoves);
-        this.checkLine(-1,0,possibleMoves);
-        this.checkLine(0,1,possibleMoves);
-        this.checkLine(0,-1,possibleMoves);
 
-        this.checkLine(1,1,possibleMoves);
-        this.checkLine(1,-1,possibleMoves);
-        this.checkLine(-1,1,possibleMoves);
-        this.checkLine(-1,-1,possibleMoves);
-        
+        this.checkLine(1, 0, possibleMoves);
+        this.checkLine(-1, 0, possibleMoves);
+        this.checkLine(0, 1, possibleMoves);
+        this.checkLine(0, -1, possibleMoves);
+
+        this.checkLine(1, 1, possibleMoves);
+        this.checkLine(1, -1, possibleMoves);
+        this.checkLine(-1, 1, possibleMoves);
+        this.checkLine(-1, -1, possibleMoves);
+
         return possibleMoves;
-    }  
-    
-    checkLine(dx,dy, possibleMoves){
-        for(let i=1; i<8; i++){
-            let xx = this.x+ dx*i;
-            let yy = this.y+ dy*i;
-//         console.log('stat',i,':',board[xx][yy],'stat', this.getSquareStatus(xx,yy));
-   console.log('king: ',this.isKingSafe('white'));
-            if(xx>=0 && xx<8 && yy>=0 && yy<8){
-                if(this.getSquareStatus(xx,yy)==0){         // empty square
+    }
+
+    checkLine(dx, dy, possibleMoves) {
+        for (let i = 1; i < 8; i++) {
+            let xx = this.x + dx * i;
+            let yy = this.y + dy * i;
+            //         console.log('stat',i,':',board[xx][yy],'stat', this.getSquareStatus(xx,yy));
+       console.log('king: ',this.isKingSafe('white'));
+            if (xx >= 0 && xx < 8 && yy >= 0 && yy < 8) {
+                if (this.getSquareStatus(xx, yy) == 0) {
+                    // empty square
                     possibleMoves.push(`${xx},${yy}`);
-                }else if(this.getSquareStatus(xx,yy)==2){   // enemy piece
+                } else if (this.getSquareStatus(xx, yy) == 2) {
+                    // enemy piece
                     possibleMoves.push(`${xx},${yy}`);
                     break;
-                }else{                                      // my piece
+                } else {
+                    // my piece
                     break;
                 }
-            }else{                                          // out of board
+            } else {
+                // out of board
                 break;
-            }     
+            }
         }
     }
 
-    getSquareStatus(x,y){
-        let status = 0;         //empty square
-       // let piece = this.pieceOnSquare(`${x}`, `${y}`);
-        let piece = this.pieceOnSquare(x,y);
-       if(piece){
-            if(piece === "undefined"){
+    getSquareStatus(x, y) {
+        let status = 0; //empty square
+        // let piece = this.pieceOnSquare(`${x}`, `${y}`);
+        let piece = this.pieceOnSquare(x, y);
+        if (piece) {
+            if (piece === 'undefined') {
                 status = 0;
-            }else if(piece.side === this.side){
-                status = 1;     // my piece
-            }else{
-                status = 2;     // enemy piece
-            }  
-        } 
+            } else if (piece.side === this.side) {
+                status = 1; // my piece
+            } else {
+                status = 2; // enemy piece
+            }
+        }
         return status;
     }
 
-    isKingSafe(side){
-        // tu mam problem, bo nie ma jak się dostać do króla  
+    isKingSafe(side) {
+        // tu mam problem, bo nie ma jak się dostać do króla
         //const king = board.kingWhite;   // to jest źle, bo board nie jest klasą
-            //const kingBlack 
+        //const kingBlack
         let king = this.getKing(side);
+        //console.log('if if if ',this.getKing(side));
         return king.isSafe(king.x, king.y);
     }
 
-    getKing(side){
+    getKing(side) {
         //const mySide = this.side === 'black' ? 'black' : 'white';
-        loopRow: for (const row of board) {
-            for (const piece of row) {
-                if (piece && piece.side ===side && piece.name === 'king') {
-                    const king = piece;
-                    break;
-
+       //let king;
+       // loopRow: 
+        for (const row of board) {
+            for (const square of row) {
+                
+                if (square && (square.side === side) && (square.name === 'king')) {
+                    console.log('getKing:',side,square);
+                    //king = square;
+                    return square;
+                    //break loopRow;
                 }
             }
         }
-        return king
+        
     }
 }
 
