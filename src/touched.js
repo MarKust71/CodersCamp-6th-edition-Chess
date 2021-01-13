@@ -8,13 +8,14 @@ const touched = (e) => {
     }
 
     const possibleMoves = board[x][y].findLegalMoves();
-    const promotePiece = board[x][y].promote();
     const possibleMoveClass = ` possibleMove`;
     for (let el of possibleMoves) {
         if (!document.getElementById(el).className.includes(possibleMoveClass)) {
             document.getElementById(el).className += possibleMoveClass;
+
             document.getElementById(el).addEventListener('click', (e) => {
                 board[x][y].move(e.currentTarget.id);
+                board[e.currentTarget.id[0]][e.currentTarget.id[2]].promote();
                 for (let x = 0; x < board.length; x++) {
                     for (let y = 0; y < board[x].length; y++) {
                         document.getElementById(`${x},${y}`).className = document

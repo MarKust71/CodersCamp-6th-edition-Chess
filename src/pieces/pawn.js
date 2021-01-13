@@ -1,10 +1,9 @@
 import Piece from './piece';
-import Bishop from "../pieces/bishop";
-import Queen from "../pieces/queen";
-import Knight from "../pieces/knight";
-import Rook from "../pieces/rook";
-import board from "../board";
-
+import Bishop from '../pieces/bishop';
+import Queen from '../pieces/queen';
+import Knight from '../pieces/knight';
+import Rook from '../pieces/rook';
+import board from '../board';
 
 class Pawn extends Piece {
     constructor(x, y, side, board) {
@@ -49,13 +48,11 @@ class Pawn extends Piece {
         if (toCaptureOnLeft && this.side !== toCaptureOnLeft.side) {
             possibleMoves.push(moveCrossLeft);
         }
-        console.log('z find legal moves')
         return possibleMoves;
-
     }
 
     promote() {
-        const typePiece = ['queen', 'rook', 'knight', 'bishop']
+        const typePiece = ['queen', 'rook', 'knight', 'bishop'];
         const x = this.x;
         const y = this.y;
         const side = this.side;
@@ -63,19 +60,18 @@ class Pawn extends Piece {
         const promotionWindow = document.createElement('div');
 
         function switchFigures(e) {
-            console.log('ze switch ')
             let newFigure;
             switch (e.target.id) {
-                case "bishop":
+                case 'bishop':
                     newFigure = new Bishop(x, y, side);
                     break;
-                case "queen":
+                case 'queen':
                     newFigure = new Queen(x, y, side);
                     break;
-                case "knight":
+                case 'knight':
                     newFigure = new Knight(x, y, side);
                     break;
-                case "rook":
+                case 'rook':
                     newFigure = new Rook(x, y, side);
                     break;
                 default:
@@ -86,9 +82,7 @@ class Pawn extends Piece {
             wrapper.removeChild(promotionWindow);
         }
 
-        console.log('z promote')
         if (x === (side === 'white' ? 0 : 7)) {
-            console.log('z ifa')
             promotionWindow.className = 'promoChoice';
             wrapper.appendChild(promotionWindow);
 
@@ -96,7 +90,7 @@ class Pawn extends Piece {
             promotionWindowList.className = 'promoChoiceList';
             promotionWindow.appendChild(promotionWindowList);
 
-            for (const piece of typePiece){
+            for (const piece of typePiece) {
                 const promotionWindowListIcon = document.createElement('li');
                 promotionWindowListIcon.classList = 'promoChoiceItem';
                 promotionWindowList.appendChild(promotionWindowListIcon);
@@ -105,7 +99,9 @@ class Pawn extends Piece {
                 promoteToNewPiece.className = `fas fa-chess-${piece} ${side}`;
                 promoteToNewPiece.id = `${piece}`;
                 promotionWindowListIcon.appendChild(promoteToNewPiece);
-                promoteToNewPiece.addEventListener("click", event => { switchFigures(event, board) })
+                promoteToNewPiece.addEventListener('click', (event) => {
+                    switchFigures(event, board);
+                });
             }
         }
     }

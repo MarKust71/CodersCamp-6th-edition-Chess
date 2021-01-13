@@ -40,7 +40,7 @@ html {
     color: silver;
 }
 .possibleMove {
-    background: rgba(222, 247, 2, 0.6);
+    background: rgb(238, 238, 36);
 }
 
 /* ======== ostylowanie PAWN ======== */
@@ -49,15 +49,15 @@ html {
     height: 40vh;
     background-color: #efeaea;
     outline: 1px #d9d5d5 solid;
+    justify-content: center;
     transform: translate(10px, 2px);
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 .promoChoice li {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     padding: 0.7rem 0;
 }
 
