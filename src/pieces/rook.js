@@ -10,16 +10,15 @@ class Rook extends Piece {
 
     findLegalMoves() {
         const possibleMoves = [];
-        console.log(`(X:${this.x}, Y:${this.y})`);
         for (let i = 1; i <= 7; i++) {
             if (this.x + i <= 7) {
                 if (board[this.x + i][this.y]) {
                     if (board[this.x + i][this.y].side !== this.side) {
-                        possibleMoves.push([this.x + i, this.y]);
+                        possibleMoves.push(`${this.x + i},${this.y}`);
                     }
                     break;
                 } else {
-                    possibleMoves.push([this.x + i, this.y]);
+                    possibleMoves.push(`${this.x + i},${this.y}`);
                 }
             }
         }
@@ -28,11 +27,11 @@ class Rook extends Piece {
             if (this.x - i >= 0) {
                 if (board[this.x - i][this.y]) {
                     if (board[this.x - i][this.y].side !== this.side) {
-                        possibleMoves.push([this.x - i, this.y]);
+                        possibleMoves.push(`${this.x - i},${this.y}`);
                     }
                     break;
                 } else {
-                    possibleMoves.push([this.x - i, this.y]);
+                    possibleMoves.push(`${this.x - i},${this.y}`);
                 }
             }
         }
@@ -41,11 +40,11 @@ class Rook extends Piece {
             if (this.y + i <= 7) {
                 if (board[this.x][this.y + i]) {
                     if (board[this.x][this.y + i].side !== this.side) {
-                        possibleMoves.push([this.x, this.y + i]);
+                        possibleMoves.push(`${this.x},${this.y + i}`);
                     }
                     break;
                 } else {
-                    possibleMoves.push([this.x, this.y + i]);
+                    possibleMoves.push(`${this.x},${this.y + i}`);
                 }
             }
         }
@@ -54,14 +53,16 @@ class Rook extends Piece {
             if (this.y - i >= 0) {
                 if (board[this.x][this.y - i]) {
                     if (board[this.x][this.y - i].side !== this.side) {
-                        possibleMoves.push([this.x, this.y - i]);
+                        possibleMoves.push(`${this.x},${this.y - i}`);
                     }
                     break;
                 } else {
-                    possibleMoves.push([this.x, this.y - i]);
+                    possibleMoves.push(`${this.x},${this.y - i}`);
                 }
             }
         }
+
+        console.log(possibleMoves);
         return possibleMoves;
     }
 
