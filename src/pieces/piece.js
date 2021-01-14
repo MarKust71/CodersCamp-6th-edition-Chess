@@ -31,6 +31,8 @@ class Piece {
         document.getElementById(id).innerHTML = this.display;
     }
 
+    promote() {}
+
     findLegalMoves() {}
 
     pieceOnSquare(x, y) {

@@ -7,6 +7,7 @@ class King extends Piece {
         this.validateInput(x, y, side);
 
         this.name = 'king';
+
         this.display = `<i class="fas fa-chess-king ${side}"></i>`; //fontawesome king
 
         if (x == -1 || y == -1) {

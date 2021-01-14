@@ -40,22 +40,36 @@ html {
     color: silver;
 }
 .possibleMove {
-    background: rgba(222, 247, 2, 0.6);
+    background: rgb(238, 238, 36);
 }
 
 /* ======== ostylowanie PAWN ======== */
 .promoChoice {
     width: 10vh;
     height: 40vh;
-    background-color: lightgrey;
-    outline: 1px gray solid;
+    background-color: #efeaea;
+    outline: 1px #d9d5d5 solid;
+    justify-content: center;
     transform: translate(10px, 2px);
+    display: flex;
+    align-items: center;
+}
+.promoChoice li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 0;
+}
+
+.promoChoiceItem {
+    font-size: 2rem;
 }
 .promoChoiceItem:hover {
-    color: white;
+    color: black;
+    opacity: 0.5;
 }
 .promoChoiceList {
-    margin: 0 0;
+    margin: 0;
     list-style: none;
     padding-left: 0;
 }

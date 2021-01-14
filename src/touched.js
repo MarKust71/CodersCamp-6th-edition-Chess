@@ -19,12 +19,12 @@ const touched = (e) => {
     }
 
     squaresState = board[x][y].findLegalMoves();
-
     for (let el of squaresState) {
         if (!document.getElementById(el).classList.contains(POSSIBLE_MOVES_CLASS)) {
             document.getElementById(el).classList.add(POSSIBLE_MOVES_CLASS);
             document.getElementById(el).addEventListener('click', (e) => {
                 board[x][y].move(e.currentTarget.id);
+                board[e.currentTarget.id[0]][e.currentTarget.id[2]].promote();
                 for (let x = 0; x < board.length; x++) {
                     for (let y = 0; y < board[x].length; y++) {
                         document.getElementById(`${x},${y}`).classList.remove(POSSIBLE_MOVES_CLASS);

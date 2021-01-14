@@ -10,6 +10,7 @@ class Rook extends Piece {
 
     findLegalMoves() {
         const possibleMoves = [];
+
         for (let i = 1; i <= 7; i++) {
             if (this.x + i <= 7) {
                 if (board[this.x + i][this.y]) {
