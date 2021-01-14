@@ -8,11 +8,11 @@ const touched = (e) => {
     const x = e.currentTarget.id[0];
     const y = e.currentTarget.id[2];
 
-    if (gameHistory.whoseTurn() !== board[x][y].side) return 0;
-
     if (!board[x][y]) {
         return;
     }
+
+    if (gameHistory.whoseTurn() !== board[x][y].side) return 0;
 
     for (let coords of squaresState) {
         document.getElementById(coords).classList.remove(POSSIBLE_MOVES_CLASS);

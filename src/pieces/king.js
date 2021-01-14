@@ -1,5 +1,6 @@
 import board from '../board';
 import Piece from './piece';
+import gameHistory from '../gameHistory';
 
 class King extends Piece {
     constructor(x = -1, y = -1, side) {
@@ -18,8 +19,9 @@ class King extends Piece {
         }
     }
 
-    findLegalMoves(canMove = true) {
+    findLegalMoves() {
         let possibleMoves = [];
+        const canMove = gameHistory.whoseTurn() === this.side ? true : false;
 
         for (let x = -1; x <= 1; x++) {
             let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;
@@ -50,6 +52,7 @@ class King extends Piece {
         const enemySide = this.side === 'white' ? 'black' : 'white';
         const pieceOnSquare = board[x][y];
         let isSafe = true;
+        board[this.x][this.y] = undefined;
 
         if (pieceOnSquare) board[x][y] = undefined;
 
@@ -64,7 +67,7 @@ class King extends Piece {
                             break loopRow;
                         }
                     } else {
-                        const moves = piece.findLegalMoves(false);
+                        const moves = piece.findLegalMoves();
 
                         if (moves.length > 0) {
                             for (const coords of moves) {
@@ -78,20 +81,23 @@ class King extends Piece {
                 }
             }
         }
-
+        board[this.x][this.y] = this;
         if (pieceOnSquare) board[x][y] = pieceOnSquare;
         return isSafe;
     }
 
-    willBeCheck(piece, x, y) {
+    moveEndangerKing(piece, x, y) {
         board[piece.x][piece.y] = undefined;
         const pieceOnDestination = board[x][y];
         board[x][y] = piece;
-        const willBeCheck = this.isSafe(this.x, this.y);
+        const willBeCheck = !this.isSafe(this.x, this.y);
         board[piece.x][piece.y] = piece;
         board[x][y] = pieceOnDestination;
-        //console.log('will be check!');
         return willBeCheck;
+    }
+
+    underCheck() {
+        return !this.isSafe(this.x, this.y);
     }
 
     validateInput(x, y, side) {
@@ -142,6 +148,19 @@ class King extends Piece {
             }
             return rooks;
         }
+    }
+
+    hasAnyAvailableMove() {
+        for (const row of board) {
+            for (const piece of row) {
+                if (piece && piece.side === this.side) {
+                    const moves = piece.findLegalMoves();
+
+                    if (moves.length > 0) return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
