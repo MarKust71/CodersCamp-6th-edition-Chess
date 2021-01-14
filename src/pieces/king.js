@@ -89,7 +89,6 @@ class King extends Piece {
         const willBeCheck = this.isSafe(this.x, this.y);
         board[piece.x][piece.y] = piece;
         board[x][y] = pieceOnDestination;
-        //console.log('will be check!');
         return willBeCheck;
     }
 
