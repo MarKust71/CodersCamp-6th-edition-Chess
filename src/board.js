@@ -53,14 +53,4 @@ board[bishopWhite.x][bishopWhite.y] = bishopWhite;
 bishopWhite = new Bishop(7, 5, 'white');
 board[bishopWhite.x][bishopWhite.y] = bishopWhite;
 
-// let knightWhite = new Knight(7, 1, 'white');
-// board[knightWhite.x][knightWhite.y] = knightWhite;
-// knightWhite = new Knight(7, 6, 'white');
-// board[knightWhite.x][knightWhite.y] = knightWhite;
-
-// let knightBlack = new Knight(0, 1, 'black');
-// board[knightBlack.x][knightBlack.y] = knightBlack;
-// knightBlack = new Knight(0, 6, 'black');
-// board[knightBlack.x][knightBlack.y] = knightBlack;
-
 export default board;
