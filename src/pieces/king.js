@@ -21,7 +21,7 @@ class King extends Piece {
 
     findLegalMoves() {
         let possibleMoves = [];
-        const canMove = gameHistory.whoseTurn() === this.side ? true : false;
+        const canMove = gameHistory.whoseTurn() === this.side;
 
         for (let x = -1; x <= 1; x++) {
             let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;

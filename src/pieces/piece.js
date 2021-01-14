@@ -48,7 +48,7 @@ class Piece {
     }
 
     hasLineMovement() {
-        return ['queen', 'rook', 'bishop'].includes(this.name) ? true : false;
+        return ['queen', 'rook', 'bishop'].includes(this.name);
     }
 
     findKing(side) {
