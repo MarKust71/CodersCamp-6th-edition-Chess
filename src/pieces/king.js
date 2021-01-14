@@ -65,6 +65,7 @@ class King extends Piece {
                         }
                     } else {
                         const moves = piece.findLegalMoves(false);
+
                         if (moves.length > 0) {
                             for (const coords of moves) {
                                 if (coords[0] == x && coords[2] == y) {
