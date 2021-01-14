@@ -2,6 +2,7 @@ import King from './pieces/king';
 import Pawn from './pieces/pawn';
 import Knight from './pieces/knight';
 import Rook from './pieces/rook';
+import Bishop from './pieces/bishop';
 
 const board = new Array(8);
 for (let i = 0; i < 8; i++) {
@@ -42,14 +43,24 @@ board[knightBlack.x][knightBlack.y] = knightBlack;
 knightBlack = new Knight(0, 6, 'black');
 board[knightBlack.x][knightBlack.y] = knightBlack;
 
-let knightWhite = new Knight(7, 1, 'white');
-board[knightWhite.x][knightWhite.y] = knightWhite;
-knightWhite = new Knight(7, 6, 'white');
-board[knightWhite.x][knightWhite.y] = knightWhite;
+let bishopBlack = new Bishop(0, 2, 'black');
+board[bishopBlack.x][bishopBlack.y] = bishopBlack;
+bishopBlack = new Bishop(0, 5, 'black');
+board[bishopBlack.x][bishopBlack.y] = bishopBlack;
 
-let knightBlack = new Knight(0, 1, 'black');
-board[knightBlack.x][knightBlack.y] = knightBlack;
-knightBlack = new Knight(0, 6, 'black');
-board[knightBlack.x][knightBlack.y] = knightBlack;
+let bishopWhite = new Bishop(7, 2, 'white');
+board[bishopWhite.x][bishopWhite.y] = bishopWhite;
+bishopWhite = new Bishop(7, 5, 'white');
+board[bishopWhite.x][bishopWhite.y] = bishopWhite;
+
+// let knightWhite = new Knight(7, 1, 'white');
+// board[knightWhite.x][knightWhite.y] = knightWhite;
+// knightWhite = new Knight(7, 6, 'white');
+// board[knightWhite.x][knightWhite.y] = knightWhite;
+
+// let knightBlack = new Knight(0, 1, 'black');
+// board[knightBlack.x][knightBlack.y] = knightBlack;
+// knightBlack = new Knight(0, 6, 'black');
+// board[knightBlack.x][knightBlack.y] = knightBlack;
 
 export default board;
