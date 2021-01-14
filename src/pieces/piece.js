@@ -13,7 +13,6 @@ class Piece {
         const newY = Number(id[2]);
         this.hasMoved = true;
 
-        //Add check and checkmate checks
         gameHistory.newMove(new Move([this.x, this.y], [newX, newY]));
 
         // Need to think about better way of doing this.

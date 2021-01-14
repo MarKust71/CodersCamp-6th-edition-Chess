@@ -9,15 +9,9 @@ export const gameHistory = {
         this.history.push(move);
     },
 
-    undoMove() {
-        //To do
-        return 0;
-    },
+    undoMove() {},
 
-    playFromTheStart() {
-        //Odtworzenie partycji
-        //To do
-    },
+    playFromTheStart() {},
 };
 
 export class Move {
