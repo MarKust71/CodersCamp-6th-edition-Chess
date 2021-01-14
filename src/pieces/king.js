@@ -7,8 +7,8 @@ class King extends Piece {
         this.validateInput(x, y, side);
 
         this.name = 'king';
-        this.display = `<i class="fas fa-chess-king ${side}"></i>`;
-        //fontawesome king
+
+        this.display = `<i class="fas fa-chess-king ${side}"></i>`; //fontawesome king
 
         if (x == -1 || y == -1) {
             this.x = side === 'white' ? 7 : 0;
@@ -20,7 +20,7 @@ class King extends Piece {
     }
 
     findLegalMoves(canMove = true) {
-        const possibleMoves = [];
+        let possibleMoves = [];
 
         for (let x = -1; x <= 1; x++) {
             let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;
@@ -32,24 +32,22 @@ class King extends Piece {
                     let isDestinationSafe = canMove ? this.isSafe(expectedX, expectedY) : true;
 
                     if (piece) {
-                        piece.side !== this.side && isDestinationSafe
-                            ? 0
-                            : possibleMoves.push(`${expectedX},${expectedY}`);
+                        if (piece.side !== this.side && isDestinationSafe)
+                            possibleMoves.push(`${expectedX},${expectedY}`);
                     } else if (isDestinationSafe) possibleMoves.push(`${expectedX},${expectedY}`);
                 } else continue;
             }
         }
 
+        possibleMoves = canMove ? [...possibleMoves, ...this.detectCastle()] : possibleMoves;
         return possibleMoves;
     }
 
     isSafe(x, y) {
         /*
-         ** Need some way to check if the piece is backed (covered) by some other figure
-         ** can't do it with this implementation of findLegalMoves
+         ** Checks if the piece or square is backed (covered) by some other figure.
+         ** Doing this by removing piece from board and then checking legal moves of all enemy pieces.
          */
-
-        // Doing this dirty way by removing piece from board and then checking legal moves
         const enemySide = this.side === 'white' ? 'black' : 'white';
         const pieceOnSquare = board[x][y];
         let isSafe = true;
@@ -59,12 +57,23 @@ class King extends Piece {
         loopRow: for (const row of board) {
             for (const piece of row) {
                 if (piece && piece.side === enemySide) {
-                    const moves = piece.findLegalMoves(false);
+                    if (piece.name === 'pawn') {
+                        const direction = piece.side === 'white' ? -1 : 1;
 
-                    for (const coords of moves) {
-                        if (coords[0] == x && coords[2] == y) {
+                        if (x === piece.x + direction && (piece.y + 1 === y || piece.y - 1 === y)) {
                             isSafe = false;
                             break loopRow;
+                        }
+                    } else {
+                        const moves = piece.findLegalMoves(false);
+
+                        if (moves.length > 0) {
+                            for (const coords of moves) {
+                                if (coords[0] == x && coords[2] == y) {
+                                    isSafe = false;
+                                    break loopRow;
+                                }
+                            }
                         }
                     }
                 }
@@ -82,6 +91,7 @@ class King extends Piece {
         const willBeCheck = this.isSafe(this.x, this.y);
         board[piece.x][piece.y] = piece;
         board[x][y] = pieceOnDestination;
+        //console.log('will be check!');
         return willBeCheck;
     }
 
@@ -94,6 +104,44 @@ class King extends Piece {
         }
         if (side !== 'white' && side !== 'black') {
             throw `Wrong value of parameter side: ${side}`;
+        }
+    }
+
+    detectCastle() {
+        const possibleMoves = [];
+        const rooks = findRooks(this);
+
+        if (!this.isSafe(this.x, this.y) || this.hasMoved) return [];
+
+        for (let i = 0; i < rooks.length; i++) {
+            if (rooks[i] && pathClear(rooks[i], this)) {
+                possibleMoves.push(`${this.x},${this.y > rooks[i].y ? this.y - 2 : this.y + 2}`);
+            }
+        }
+
+        return possibleMoves;
+
+        function pathClear(piece, king) {
+            const direction = piece.y < king.y ? -1 : 1;
+            let y = king.y + direction;
+
+            while (y !== piece.y) {
+                if (king.pieceOnSquare(king.x, y) && king.isSafe(king.x, y)) return false;
+                y += direction;
+            }
+
+            return true;
+        }
+
+        function findRooks(king) {
+            const rooks = [];
+            for (let row of board) {
+                for (let piece of row) {
+                    if (piece && piece.side === king.side && piece.name === 'rook' && !piece.hasMoved)
+                        rooks.push(piece);
+                }
+            }
+            return rooks;
         }
     }
 }
