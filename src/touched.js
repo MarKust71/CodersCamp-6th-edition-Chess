@@ -1,8 +1,10 @@
 import board from './board';
+import gameHistory from './gameHistory';
 
 const touched = (e) => {
     const x = e.currentTarget.id[0];
     const y = e.currentTarget.id[2];
+    if (gameHistory.whoseTurn() !== board[x][y].side) return 0;
     if (!board[x][y]) {
         return;
     }
