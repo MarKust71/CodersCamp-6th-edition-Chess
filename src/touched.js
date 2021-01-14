@@ -1,4 +1,5 @@
 import board from './board';
+import gameHistory from './gameHistory';
 
 let squaresState = [];
 
@@ -6,6 +7,8 @@ const touched = (e) => {
     const POSSIBLE_MOVES_CLASS = 'possibleMove';
     const x = e.currentTarget.id[0];
     const y = e.currentTarget.id[2];
+
+    if (gameHistory.whoseTurn() !== board[x][y].side) return 0;
 
     if (!board[x][y]) {
         return;

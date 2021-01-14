@@ -1,4 +1,5 @@
 import board from '../board';
+import { gameHistory, Move } from '../gameHistory';
 
 class Piece {
     constructor(x, y, side) {
@@ -11,6 +12,8 @@ class Piece {
         const newX = Number(id[0]);
         const newY = Number(id[2]);
         this.hasMoved = true;
+
+        gameHistory.newMove(new Move([this.x, this.y], [newX, newY]));
 
         // Need to think about better way of doing this.
         if (this.name === 'king' && Math.abs(this.y - newY) > 1) {
