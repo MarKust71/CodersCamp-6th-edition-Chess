@@ -163,6 +163,15 @@ class King extends Piece {
         }
         return false;
     }
+
+    castle(rook, rookNewY) {
+        board[rook.x][rook.y] = null;
+        document.getElementById(`${rook.x},${rook.y}`).innerHTML = '';
+        rook.x = this.x;
+        rook.y = rookNewY;
+        board[rook.x][rook.y] = rook;
+        document.getElementById(`${rook.x},${rook.y}`).innerHTML = rook.display;
+    }
 }
 
 export default King;

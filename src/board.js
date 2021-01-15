@@ -4,10 +4,12 @@ import Knight from './pieces/knight';
 import Rook from './pieces/rook';
 import Bishop from './pieces/bishop';
 
-const board = new Array(8);
+export const board = new Array(8);
 for (let i = 0; i < 8; i++) {
     board[i] = new Array(8);
 }
+board.width = board.length;
+board.height = board.length;
 
 for (let i = 0; i < 8; i++) {
     let pawn = new Pawn(6, i, 'white');
