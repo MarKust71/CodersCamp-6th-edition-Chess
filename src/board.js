@@ -18,8 +18,8 @@ for (let i = 0; i < 8; i++) {
     board[pawn.x][pawn.y] = pawn;
 }
 
-let pawn = new Pawn(1, 3, 'white');
-board[pawn.x][pawn.y] = pawn;
+// let pawn = new Pawn(1, 3, 'white');
+// board[pawn.x][pawn.y] = pawn;
 
 const kingWhite = new King(-1, -1, 'white');
 const kingBlack = new King(-1, -1, 'black');
