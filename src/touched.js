@@ -8,11 +8,7 @@ const touched = (e) => {
     const x = e.currentTarget.id[0];
     const y = e.currentTarget.id[2];
 
-    if (!board[x][y]) {
-        return;
-    }
-
-    if (gameHistory.whoseTurn() !== board[x][y].side) return 0;
+    if (!board[x][y] || gameHistory.whoseTurn() !== board[x][y].side) return 0;
 
     for (let coords of squaresState) {
         const square = document.getElementById(coords);
@@ -28,11 +24,11 @@ const touched = (e) => {
         document.getElementById(el).addEventListener('click', movePieceStrategy);
     }
 
-    function movePieceStrategy(e) {
-        board[x][y].move(e.currentTarget.id);
-        board[e.currentTarget.id[0]][e.currentTarget.id[2]].promote();
-        for (let x = 0; x < board.length; x++) {
-            for (let y = 0; y < board[x].length; y++) {
+    function movePieceStrategy(event) {
+        board[x][y].move(event.currentTarget.id);
+        board[event.currentTarget.id[0]][event.currentTarget.id[2]].promote();
+        for (let x = 0; x < board.width; x++) {
+            for (let y = 0; y < board.height; y++) {
                 document.getElementById(`${x},${y}`).classList.remove(POSSIBLE_MOVES_CLASS);
 
                 let old_element = document.getElementById(`${x},${y}`);
@@ -44,8 +40,8 @@ const touched = (e) => {
         }
     }
 
-    function movePiece(e) {
-        touched(e);
+    function movePiece(event) {
+        touched(event);
     }
 };
 

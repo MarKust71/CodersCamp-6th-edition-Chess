@@ -21,20 +21,14 @@ class Piece {
         //Castle exception
         if (this.name === 'king' && Math.abs(this.y - newY) > 1) {
             const rook = board[newX][this.y < newY ? 7 : 0];
-            const y = newY === 6 ? newY - 1 : newY + 1;
+            const rookNewY = newY === 6 ? newY - 1 : newY + 1;
+
+            this.castle(rook, rookNewY);
 
             move.special = {
-                type: y < 4 ? 'castle long' : 'castle short',
-                coords: { origin: [rook.x, rook.y], destination: [newX, y] },
+                type: rookNewY < 4 ? 'castle long' : 'castle short',
+                coords: { origin: [rook.x, rook.y], destination: [newX, rookNewY] },
             };
-
-            //Normal move procedure for rook
-            board[rook.x][rook.y] = null;
-            document.getElementById(`${rook.x},${rook.y}`).innerHTML = '';
-            rook.x = newX;
-            rook.y = y;
-            board[rook.x][rook.y] = rook;
-            document.getElementById(`${rook.x},${rook.y}`).innerHTML = rook.display;
         }
 
         //clearing previous place
