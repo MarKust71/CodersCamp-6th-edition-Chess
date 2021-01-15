@@ -4,7 +4,7 @@
 name: Lint and Prettier
 
 on:
-  push
+  [push, pull_request]
 
 jobs:
   lint:
