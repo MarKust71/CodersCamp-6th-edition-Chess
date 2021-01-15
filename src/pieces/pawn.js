@@ -58,7 +58,7 @@ class Pawn extends Piece {
         const side = this.side;
         const wrapper = document.getElementById('wrapper');
         const promotionWindow = document.createElement('div');
-        const promoCover = document.createElement("div");
+        const promoCover = document.createElement('div');
 
         function switchFigures(e) {
             let newFigure;
@@ -88,14 +88,14 @@ class Pawn extends Piece {
             promotionWindow.className = 'promoChoice';
             wrapper.appendChild(promotionWindow);
 
-            const text = document.createTextNode("Pick promoted figure:");
-            const promoText = document.createElement("div");
-            promoText.className = "promoText";
+            const text = document.createTextNode('Pick promoted figure:');
+            const promoText = document.createElement('div');
+            promoText.className = 'promoText';
             promoText.appendChild(text);
             promotionWindow.appendChild(promoText);
 
-            promoCover.className = "promoCover";
-            wrapper.appendChild(promoCover)
+            promoCover.className = 'promoCover';
+            wrapper.appendChild(promoCover);
 
             const promotionWindowList = document.createElement('ul');
             promotionWindowList.className = 'promoChoiceList';
