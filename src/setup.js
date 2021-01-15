@@ -1,7 +1,7 @@
 import touched from './touched';
 import board from './board';
-import {startSetup} from "./startSetupBox";
-import {gameplaySidebar} from "./gameplaySidebar";
+import { startSetup } from './startSetupBox';
+import { gameplaySidebar } from './gameplaySidebar';
 
 const setup = () => {
     for (let x = 0; x < board.length; x++) {

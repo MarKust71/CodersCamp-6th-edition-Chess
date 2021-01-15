@@ -78,7 +78,8 @@ body {
     padding-left: 0;
     font-size: 4vh;
 }
-.blackPlayerTimerContainer, .whitePlayerTimerContainer{
+.blackPlayerTimerContainer,
+.whitePlayerTimerContainer {
     width: 15vw;
     text-align: center;
     display: flex;
@@ -86,7 +87,8 @@ body {
     align-items: center;
 }
 
-.blackPlayerTimer, .whitePlayerTimer {
+.blackPlayerTimer,
+.whitePlayerTimer {
     background: #ddd;
     min-width: 80%;
     min-height: 80%;
@@ -142,7 +144,7 @@ body {
 }
 
 #playTimeSelect {
-    margin-top:1vh;
+    margin-top: 1vh;
     width: 25vw;
 }
 
@@ -153,7 +155,8 @@ body {
     font-size: 4vh;
 }
 
-.startGameButton:hover, .startGameButton:active {
+.startGameButton:hover,
+.startGameButton:active {
     opacity: 0.8;
     cursor: pointer;
 }
@@ -218,7 +221,6 @@ body {
 /*}*/
 
 @media (max-width: 600px) {
-
     #board {
         min-width: 50vh;
         min-height: 50vh;
@@ -240,11 +242,13 @@ body {
         font-size: 3vh;
     }
 
-    .blackPlayerTimerContainer, .whitePlayerTimerContainer{
+    .blackPlayerTimerContainer,
+    .whitePlayerTimerContainer {
         width: 14vw;
     }
 
-    .blackPlayerTimer, .whitePlayerTimer {
+    .blackPlayerTimer,
+    .whitePlayerTimer {
         border-radius: 3px;
         font-size: 3vh;
     }
@@ -278,7 +282,7 @@ body {
     }
 
     #playTimeSelect {
-        margin-top:1vh;
+        margin-top: 1vh;
         width: 25vw;
     }
 
@@ -298,7 +302,6 @@ body {
 }
 
 @media (max-width: 400px) {
-
     #board {
         min-width: 35vh;
         min-height: 35vh;
@@ -320,11 +323,13 @@ body {
         font-size: 2vh;
     }
 
-    .blackPlayerTimerContainer, .whitePlayerTimerContainer{
+    .blackPlayerTimerContainer,
+    .whitePlayerTimerContainer {
         width: 12vw;
     }
 
-    .blackPlayerTimer, .whitePlayerTimer {
+    .blackPlayerTimer,
+    .whitePlayerTimer {
         border-radius: 2px;
         font-size: 2vh;
     }
