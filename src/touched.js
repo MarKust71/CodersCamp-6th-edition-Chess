@@ -15,31 +15,39 @@ const touched = (e) => {
     if (gameHistory.whoseTurn() !== board[x][y].side) return 0;
 
     for (let coords of squaresState) {
-        document.getElementById(coords).classList.remove(POSSIBLE_MOVES_CLASS);
+        const square = document.getElementById(coords);
+        square.classList.remove(POSSIBLE_MOVES_CLASS);
+        //For some reason can't remove eventListener so it's being removed by cloning node
+        //square.removeEventListener('click', movePiece);
+        let new_element = square.cloneNode(true);
+        square.parentNode.replaceChild(new_element, square);
     }
 
     squaresState = board[x][y].findLegalMoves();
     for (let el of squaresState) {
-        if (!document.getElementById(el).classList.contains(POSSIBLE_MOVES_CLASS)) {
-            document.getElementById(el).classList.add(POSSIBLE_MOVES_CLASS);
-            document.getElementById(el).addEventListener('click', (e) => {
-                board[x][y].move(e.currentTarget.id);
-                board[e.currentTarget.id[0]][e.currentTarget.id[2]].promote();
-                for (let x = 0; x < board.length; x++) {
-                    for (let y = 0; y < board[x].length; y++) {
-                        document.getElementById(`${x},${y}`).classList.remove(POSSIBLE_MOVES_CLASS);
+        console.log(document.getElementById(el));
+        document.getElementById(el).classList.add(POSSIBLE_MOVES_CLASS);
+        document.getElementById(el).addEventListener('click', movePieceStrategy);
+    }
 
-                        let old_element = document.getElementById(`${x},${y}`);
-                        let new_element = old_element.cloneNode(true);
-                        old_element.parentNode.replaceChild(new_element, old_element);
+    function movePieceStrategy(e) {
+        board[x][y].move(e.currentTarget.id);
+        board[e.currentTarget.id[0]][e.currentTarget.id[2]].promote();
+        for (let x = 0; x < board.length; x++) {
+            for (let y = 0; y < board[x].length; y++) {
+                document.getElementById(`${x},${y}`).classList.remove(POSSIBLE_MOVES_CLASS);
 
-                        document.getElementById(`${x},${y}`).addEventListener('click', (e) => {
-                            touched(e);
-                        });
-                    }
-                }
-            });
+                let old_element = document.getElementById(`${x},${y}`);
+                let new_element = old_element.cloneNode(true);
+                old_element.parentNode.replaceChild(new_element, old_element);
+
+                document.getElementById(`${x},${y}`).addEventListener('click', movePiece);
+            }
         }
+    }
+
+    function movePiece(e) {
+        touched(e);
     }
 };
 
