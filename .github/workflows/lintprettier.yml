@@ -3,42 +3,41 @@
 
 name: Lint and Prettier
 
-on:
-  [push, pull_request]
+on: [push, pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+    lint:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 15.x]
+        strategy:
+            matrix:
+                node-version: [12.x, 14.x, 15.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache node modules
-        uses: actions/cache@v1
+        steps:
+            - uses: actions/checkout@v2
+            - name: Cache node modules
+              uses: actions/cache@v1
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+            - name: Setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+            - name: npm install
+              run: npm install
+              working-directory: ${{env.working-directory}}
+            - name: npm run lint
+              run: npm run lint
+              working-directory: ${{env.working-directory}}
+            - name: npm prettier
+              run: npm run prettier
+              working-directory: ${{env.working-directory}}
         env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: npm install
-        run: npm install
-        working-directory: ${{env.working-directory}}
-      - name: npm run lint
-        run: npm run lint
-        working-directory: ${{env.working-directory}}
-      - name: npm prettier
-        run: npm run prettier
-        working-directory: ${{env.working-directory}}
-    env:
-      working-directory: ./
+            working-directory: ./

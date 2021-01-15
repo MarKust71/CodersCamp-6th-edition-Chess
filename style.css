@@ -4,11 +4,16 @@ html {
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+}
+
 #wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 #board {
@@ -17,9 +22,11 @@ html {
     display: grid;
     grid-template-rows: repeat(8, 1fr);
     grid-template-columns: repeat(8, 1fr);
+    justify-content: center;
+    align-items: center;
     min-width: 80vh;
     min-height: 80vh;
-    border: 2px solid black;
+    outline: 2px solid black;
 }
 .square {
     /* border: 1px darkslategrey solid; */
@@ -47,15 +54,61 @@ html {
     background: rgb(238, 238, 36);
 }
 
-/* ======== ostylowanie PAWN ======== */
+/* ========ostylowanie gameplaySidebar ======== */
+
+#gameplaySidebar {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    outline: 2px solid black;
+    background: #eee;
+}
+
+.gameHistoryRecording {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.recordingListMoves {
+    padding-left: 0;
+    font-size: 4vh;
+}
+.blackPlayerTimerContainer,
+.whitePlayerTimerContainer {
+    width: 15vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blackPlayerTimer,
+.whitePlayerTimer {
+    background: #ddd;
+    min-width: 80%;
+    min-height: 80%;
+    border: 1px solid rgb(238, 238, 36);
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgb(238, 238, 36);
+    font-size: 5vh;
+}
+
+/* ======== ostylowanie promocja, start gry i koniec ======== */
+.startCover,
 .promoCover {
-    width: 100vh;
+    width: calc(100vh + 15vw);
     height: 100vh;
-    background: white;
+    background: #fff;
     opacity: 0.4;
     position: fixed;
     z-index: 5;
 }
+.startSetupBox,
 .promoChoice {
     width: 60vh;
     height: 30vh;
@@ -72,6 +125,40 @@ html {
     padding: 2rem;
     margin-right: 1.2rem;
     z-index: 10;
+}
+
+.setupBoxTitle {
+    font-size: 5vh;
+}
+
+#playTimeForm {
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#playTimeForm div {
+    font-size: 3vh;
+}
+
+#playTimeSelect {
+    margin-top: 1vh;
+    width: 15vw;
+}
+
+.startGameButton {
+    border: 1px solid rgb(205, 205, 23);
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgb(205, 205, 23);
+    font-size: 4vh;
+}
+
+.startGameButton:hover,
+.startGameButton:active {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .promoChoiceList {
@@ -133,11 +220,37 @@ html {
 /*    margin: 0;*/
 /*}*/
 
-@media (max-width: 550px) {
-
+@media (max-width: 600px) {
     #board {
         min-width: 50vh;
         min-height: 50vh;
+    }
+
+    #gameplaySidebar {
+        height: 50vh;
+    }
+
+    #gameplaySidebar {
+        height: 50vh;
+    }
+
+    .gameHistoryRecording {
+        height: 38vh;
+    }
+
+    .recordingListMoves {
+        font-size: 3vh;
+    }
+
+    .blackPlayerTimerContainer,
+    .whitePlayerTimerContainer {
+        width: 14vw;
+    }
+
+    .blackPlayerTimer,
+    .whitePlayerTimer {
+        border-radius: 3px;
+        font-size: 3vh;
     }
 
     .square {
@@ -153,10 +266,29 @@ html {
         display: block;
     }
 
+    .startSetupBox,
     .promoChoice {
         width: 40vh;
         height: 20vh;
         padding: 1rem;
+    }
+
+    .setupBoxTitle {
+        font-size: 4vh;
+    }
+
+    #playTimeForm div {
+        font-size: 2.5vh;
+    }
+
+    #playTimeSelect {
+        width: 25vw;
+        margin-top: 1vh;
+    }
+
+    .startGameButton {
+        border-radius: 3px;
+        font-size: 3vh;
     }
 
     .promoText {
@@ -169,11 +301,37 @@ html {
     }
 }
 
-@media (max-width: 350px) {
-
+@media (max-width: 400px) {
     #board {
         min-width: 35vh;
         min-height: 35vh;
+    }
+
+    #gameplaySidebar {
+        height: 35vh;
+    }
+
+    #gameplaySidebar {
+        height: 35vh;
+    }
+
+    .gameHistoryRecording {
+        height: 26.6vh;
+    }
+
+    .recordingListMoves {
+        font-size: 2vh;
+    }
+
+    .blackPlayerTimerContainer,
+    .whitePlayerTimerContainer {
+        width: 12vw;
+    }
+
+    .blackPlayerTimer,
+    .whitePlayerTimer {
+        border-radius: 2px;
+        font-size: 2vh;
     }
 
     .square {
@@ -182,9 +340,36 @@ html {
         font-size: 3.2vh;
     }
 
+    .startSetupBox,
     .promoChoice {
         width: 26vh;
         height: 13vh;
+    }
+
+    .startSetupBox {
+        width: 43%;
+        height: 15%;
+    }
+
+    .setupBoxTitle {
+        font-size: 2.5vh;
+    }
+
+    #playTimeForm {
+        height: 8vh;
+    }
+
+    #playTimeForm div {
+        font-size: 2vh;
+    }
+
+    #playTimeSelect {
+        width: 25vw;
+    }
+
+    .startGameButton {
+        border-radius: 2px;
+        font-size: 2vh;
     }
 
     .promoText {
