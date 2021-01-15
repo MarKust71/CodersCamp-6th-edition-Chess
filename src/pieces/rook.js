@@ -63,7 +63,6 @@ class Rook extends Piece {
             }
         }
 
-        // console.log(possibleMoves);
         return possibleMoves;
     }
 
