@@ -145,7 +145,7 @@ body {
 
 #playTimeSelect {
     margin-top: 1vh;
-    width: 25vw;
+    width: 15vw;
 }
 
 .startGameButton {
@@ -282,8 +282,8 @@ body {
     }
 
     #playTimeSelect {
-        margin-top: 1vh;
         width: 25vw;
+        margin-top: 1vh;
     }
 
     .startGameButton {
@@ -349,10 +349,6 @@ body {
     .startSetupBox {
         width: 43%;
         height: 15%;
-    }
-
-    #playTimeSelect {
-        margin: 0;
     }
 
     .setupBoxTitle {
