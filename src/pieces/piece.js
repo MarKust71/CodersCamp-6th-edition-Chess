@@ -12,11 +12,26 @@ class Piece {
         const newX = Number(id[0]);
         const newY = Number(id[2]);
         const enemyKing = this.findKing(this.side === 'white' ? 'black' : 'white');
-        const move = new Move([this.x, this.y], [newX, newY]);
+        const move = new Move(
+            { side: this.side, name: this.name },
+            { origin: [this.x, this.y], destination: [newX, newY] },
+        );
         this.hasMoved = true;
 
         if (this.name === 'king' && Math.abs(this.y - newY) > 1) {
-            board[newX][this.y < newY ? 7 : 0].move(`${newX},${newY === 6 ? newY - 1 : newY + 1}`);
+            const rook = board[newX][this.y < newY ? 7 : 0];
+            const y = newY === 6 ? newY - 1 : newY + 1;
+            console.log(y);
+
+            move.special = { type: 'castle', coords: { origin: [rook.x, rook.y], destination: [newX, y] } };
+
+            //Normal move procedure for rook
+            board[rook.x][rook.y] = null;
+            document.getElementById(`${rook.x},${rook.y}`).innerHTML = '';
+            rook.x = newX;
+            rook.y = y;
+            board[rook.x][rook.y] = rook;
+            document.getElementById(`${rook.x},${rook.y}`).innerHTML = rook.display;
         }
 
         //clearing previous place

@@ -15,11 +15,12 @@ export const gameHistory = {
 };
 
 export class Move {
-    constructor(origin, destination, check = false, checkMate = false) {
-        this.origin = origin;
-        this.destination = destination;
+    constructor(piece, coords, special, check = false, checkMate = false) {
+        this.piece = piece;
+        this.coords = coords;
         this.check = check;
         this.checkMate = checkMate;
+        this.special = special;
     }
 }
 
