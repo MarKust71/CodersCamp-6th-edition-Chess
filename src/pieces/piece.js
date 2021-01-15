@@ -18,12 +18,16 @@ class Piece {
         );
         this.hasMoved = true;
 
+        //Castle exception
         if (this.name === 'king' && Math.abs(this.y - newY) > 1) {
             const rook = board[newX][this.y < newY ? 7 : 0];
             const y = newY === 6 ? newY - 1 : newY + 1;
             console.log(y);
 
-            move.special = { type: 'castle', coords: { origin: [rook.x, rook.y], destination: [newX, y] } };
+            move.special = {
+                type: y < 4 ? 'castle long' : 'castle short',
+                coords: { origin: [rook.x, rook.y], destination: [newX, y] },
+            };
 
             //Normal move procedure for rook
             board[rook.x][rook.y] = null;
@@ -45,6 +49,7 @@ class Piece {
         document.getElementById(id).innerHTML = this.display;
         move.check = enemyKing.underCheck();
 
+        console.log(move);
         gameHistory.newMove(move);
 
         if (move.check && !enemyKing.hasAnyAvailableMove()) {
