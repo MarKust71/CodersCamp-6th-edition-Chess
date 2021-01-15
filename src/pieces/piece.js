@@ -1,6 +1,5 @@
 import board from '../board';
 import { gameHistory, Move } from '../gameHistory';
-
 class Piece {
     constructor(x, y, side) {
         this.x = x;
@@ -28,9 +27,12 @@ class Piece {
         this.y = newY;
         board[this.x][this.y] = this;
         document.getElementById(id).innerHTML = this.display;
-        move.check = enemyKing.underCheck();
 
-        gameHistory.newMove(move);
+        //Adding one element to switch turn with results with lesser number of check cases.
+        gameHistory.newMove({});
+
+        move.check = enemyKing.underCheck();
+        gameHistory.history[gameHistory.history.length - 1] = move;
 
         if (move.check && !enemyKing.hasAnyAvailableMove()) {
             gameHistory.history[gameHistory.history.length - 1].checkMate = true;
