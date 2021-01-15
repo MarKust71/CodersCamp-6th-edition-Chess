@@ -1,5 +1,4 @@
 import Piece from './piece';
-import Pawn from './pawn';
 import board from '../board';
 
 class Bishop extends Piece {
