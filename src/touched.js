@@ -17,15 +17,13 @@ const touched = (e) => {
     for (let coords of squaresState) {
         const square = document.getElementById(coords);
         square.classList.remove(POSSIBLE_MOVES_CLASS);
-        //For some reason can't remove eventListener so it's being removed by cloning node
-        //square.removeEventListener('click', movePiece);
+        //Removing eventListener by cloning and replacing node
         let new_element = square.cloneNode(true);
         square.parentNode.replaceChild(new_element, square);
     }
 
     squaresState = board[x][y].findLegalMoves();
     for (let el of squaresState) {
-        console.log(document.getElementById(el));
         document.getElementById(el).classList.add(POSSIBLE_MOVES_CLASS);
         document.getElementById(el).addEventListener('click', movePieceStrategy);
     }
