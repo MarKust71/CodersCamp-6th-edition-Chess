@@ -31,7 +31,6 @@ const queenBlack = new Queen(-1, -1, 'black');
 board[queenWhite.x][queenWhite.y] = queenWhite;
 board[queenBlack.x][queenBlack.y] = queenBlack;
 
-
 let rookWhite = new Rook(7, 0, 'white');
 board[rookWhite.x][rookWhite.y] = rookWhite;
 rookWhite = new Rook(7, 7, 'white');
