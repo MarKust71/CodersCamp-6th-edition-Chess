@@ -1,42 +1,47 @@
 import board from './board';
+import gameHistory from './gameHistory';
+
+let squaresState = [];
 
 const touched = (e) => {
+    const POSSIBLE_MOVES_CLASS = 'possibleMove';
     const x = e.currentTarget.id[0];
     const y = e.currentTarget.id[2];
-    if (!board[x][y]) {
-        return;
+
+    if (!board[x][y] || gameHistory.whoseTurn() !== board[x][y].side) return 0;
+
+    for (let coords of squaresState) {
+        const square = document.getElementById(coords);
+        square.classList.remove(POSSIBLE_MOVES_CLASS);
+        //Removing eventListener by cloning and replacing node
+        let new_element = square.cloneNode(true);
+        square.parentNode.replaceChild(new_element, square);
     }
 
-    const possibleMoves = board[x][y].findLegalMoves();
-    console.log(possibleMoves);
-    const possibleMoveClass = ` possibleMove`;
-    for (let el of possibleMoves) {
-        console.log(document.getElementById(el).className);
-        console.log(document.getElementById(el).className.includes(possibleMoveClass));
-        console.log(possibleMoveClass);
-        if (!document.getElementById(el).className.includes(possibleMoveClass)) {
-            document.getElementById(el).className += possibleMoveClass;
-            document.getElementById(el).addEventListener('click', (e) => {
-                board[x][y].move(e.currentTarget.id);
-                for (let x = 0; x < board.length; x++) {
-                    for (let y = 0; y < board[x].length; y++) {
-                        document.getElementById(`${x},${y}`).className = document
-                            .getElementById(`${x},${y}`)
-                            .className.replace(possibleMoveClass, '');
+    squaresState = board[x][y].findLegalMoves();
+    for (let el of squaresState) {
+        document.getElementById(el).classList.add(POSSIBLE_MOVES_CLASS);
+        document.getElementById(el).addEventListener('click', movePieceStrategy);
+    }
 
-                        //TODO: rozwiązać tematykę event listenerów sprytniej, przenosząc każdy do osobnego pliku
-                        let old_element = document.getElementById(`${x},${y}`);
-                        let new_element = old_element.cloneNode(true);
-                        old_element.parentNode.replaceChild(new_element, old_element);
+    function movePieceStrategy(event) {
+        board[x][y].move(event.currentTarget.id);
+        board[event.currentTarget.id[0]][event.currentTarget.id[2]].promote();
+        for (let x = 0; x < board.width; x++) {
+            for (let y = 0; y < board.height; y++) {
+                document.getElementById(`${x},${y}`).classList.remove(POSSIBLE_MOVES_CLASS);
 
-                        // document.getElementById(`${x},${y}`).removeEventListener('click');
-                        document.getElementById(`${x},${y}`).addEventListener('click', (e) => {
-                            touched(e);
-                        });
-                    }
-                }
-            });
+                let old_element = document.getElementById(`${x},${y}`);
+                let new_element = old_element.cloneNode(true);
+                old_element.parentNode.replaceChild(new_element, old_element);
+
+                document.getElementById(`${x},${y}`).addEventListener('click', movePiece);
+            }
         }
+    }
+
+    function movePiece(event) {
+        touched(event);
     }
 };
 

@@ -1,4 +1,5 @@
 import Piece from './piece';
+import board from '../board';
 
 class Knight extends Piece {
     constructor(x, y, side) {
@@ -8,15 +9,29 @@ class Knight extends Piece {
     }
     findLegalMoves() {
         const possibleMoves = [];
-        this.x - 2 > -1 && this.y - 1 > -1 && possibleMoves.push(`${this.x - 2},${this.y - 1}`);
-        this.x - 2 > -1 && this.y + 1 < 8 && possibleMoves.push(`${this.x - 2},${this.y + 1}`);
-        this.x + 2 < 8 && this.y + 1 < 8 && possibleMoves.push(`${this.x + 2},${this.y + 1}`);
-        this.x + 2 < 8 && this.y - 1 > -1 && possibleMoves.push(`${this.x + 2},${this.y - 1}`);
+        const movesRelatedToKnightsPosition = [
+            [-2, -1],
+            [-2, 1],
+            [2, 1],
+            [2, -1],
+            [-1, -2],
+            [-1, 2],
+            [1, 2],
+            [1, -2],
+        ];
 
-        this.x - 1 > -1 && this.y - 2 > -1 && possibleMoves.push(`${this.x - 1},${this.y - 2}`);
-        this.x - 1 > -1 && this.y + 2 < 8 && possibleMoves.push(`${this.x - 1},${this.y + 2}`);
-        this.x + 1 < 8 && this.y + 2 < 8 && possibleMoves.push(`${this.x + 1},${this.y + 2}`);
-        this.x + 1 < 8 && this.y - 2 > -1 && possibleMoves.push(`${this.x + 1},${this.y - 2}`);
+        movesRelatedToKnightsPosition.map((item) => {
+            if (this.x + item[0] > -1 && this.x + item[0] < 8 && this.y + item[1] > -1 && this.y + item[1] < 8) {
+                if (board[this.x + item[0]][this.y + item[1]]) {
+                    if (this.side !== board[this.x + item[0]][this.y + item[1]].side) {
+                        possibleMoves.push(`${this.x + item[0]},${this.y + item[1]}`);
+                    }
+                } else {
+                    possibleMoves.push(`${this.x + item[0]},${this.y + item[1]}`);
+                }
+            }
+        });
+
         return possibleMoves;
     }
 }

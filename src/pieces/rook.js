@@ -1,4 +1,5 @@
 import Piece from './piece';
+import board from '../board';
 
 class Rook extends Piece {
     constructor(x, y, side) {
@@ -6,25 +7,62 @@ class Rook extends Piece {
         this.name = 'rook';
         this.display = `<i class="fas fa-chess-rook ${side}"></i>`; //fontawesome rook
     }
+
     findLegalMoves() {
         const possibleMoves = [];
-        if (this.side == 'white') {
-            for (let i = 0; i <= 6; i++) {
-                this.x - i > 0 && possibleMoves.push(`${this.x - i - 1},${this.y}`);
-            }
 
-            for (let i = 0; i >= -6; i--) {
-                this.x - i < 7 && possibleMoves.push(`${this.x - i + 1},${this.y}`);
-            }
-
-            for (let i = 0; i <= 6; i++) {
-                this.y - i > 0 && possibleMoves.push(`${this.x},${this.y - i - 1}`);
-            }
-
-            for (let i = 0; i >= -6; i--) {
-                this.y - i < 7 && possibleMoves.push(`${this.x},${this.y - i + 1}`);
+        for (let i = 1; i <= 7; i++) {
+            if (this.x + i <= 7) {
+                if (board[this.x + i][this.y]) {
+                    if (board[this.x + i][this.y].side !== this.side) {
+                        possibleMoves.push(`${this.x + i},${this.y}`);
+                    }
+                    break;
+                } else {
+                    possibleMoves.push(`${this.x + i},${this.y}`);
+                }
             }
         }
+
+        for (let i = 1; i <= 7; i++) {
+            if (this.x - i >= 0) {
+                if (board[this.x - i][this.y]) {
+                    if (board[this.x - i][this.y].side !== this.side) {
+                        possibleMoves.push(`${this.x - i},${this.y}`);
+                    }
+                    break;
+                } else {
+                    possibleMoves.push(`${this.x - i},${this.y}`);
+                }
+            }
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (this.y + i <= 7) {
+                if (board[this.x][this.y + i]) {
+                    if (board[this.x][this.y + i].side !== this.side) {
+                        possibleMoves.push(`${this.x},${this.y + i}`);
+                    }
+                    break;
+                } else {
+                    possibleMoves.push(`${this.x},${this.y + i}`);
+                }
+            }
+        }
+
+        for (let i = 1; i <= 7; i++) {
+            if (this.y - i >= 0) {
+                if (board[this.x][this.y - i]) {
+                    if (board[this.x][this.y - i].side !== this.side) {
+                        possibleMoves.push(`${this.x},${this.y - i}`);
+                    }
+                    break;
+                } else {
+                    possibleMoves.push(`${this.x},${this.y - i}`);
+                }
+            }
+        }
+
         return possibleMoves;
     }
 

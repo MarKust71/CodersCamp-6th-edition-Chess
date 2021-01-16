@@ -1,5 +1,6 @@
 import board from '../board';
 import Piece from './piece';
+import gameHistory from '../gameHistory';
 
 class King extends Piece {
     constructor(x = -1, y = -1, side) {
@@ -7,6 +8,7 @@ class King extends Piece {
         this.validateInput(x, y, side);
 
         this.name = 'king';
+
         this.display = `<i class="fas fa-chess-king ${side}"></i>`; //fontawesome king
 
         if (x == -1 || y == -1) {
@@ -18,8 +20,9 @@ class King extends Piece {
         }
     }
 
-    findLegalMoves(canMove = true) {
-        const possibleMoves = [];
+    findLegalMoves() {
+        let possibleMoves = [];
+        const canMove = gameHistory.whoseTurn() === this.side;
 
         for (let x = -1; x <= 1; x++) {
             let expectedX = this.x + x >= 0 && this.x + x < 8 ? this.x + x : undefined;
@@ -38,6 +41,7 @@ class King extends Piece {
             }
         }
 
+        possibleMoves = canMove ? [...possibleMoves, ...this.detectCastle()] : possibleMoves;
         return possibleMoves;
     }
 
@@ -49,36 +53,52 @@ class King extends Piece {
         const enemySide = this.side === 'white' ? 'black' : 'white';
         const pieceOnSquare = board[x][y];
         let isSafe = true;
+        board[this.x][this.y] = undefined;
 
         if (pieceOnSquare) board[x][y] = undefined;
 
         loopRow: for (const row of board) {
             for (const piece of row) {
                 if (piece && piece.side === enemySide) {
-                    const moves = piece.findLegalMoves(false);
+                    if (piece.name === 'pawn') {
+                        const direction = piece.side === 'white' ? -1 : 1;
 
-                    for (const coords of moves) {
-                        if (coords[0] == x && coords[2] == y) {
+                        if (x === piece.x + direction && (piece.y + 1 === y || piece.y - 1 === y)) {
                             isSafe = false;
                             break loopRow;
+                        }
+                    } else {
+                        const moves = piece.findLegalMoves();
+
+                        if (moves.length > 0) {
+                            for (const coords of moves) {
+                                if (coords[0] == x && coords[2] == y) {
+                                    isSafe = false;
+                                    break loopRow;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-
+        board[this.x][this.y] = this;
         if (pieceOnSquare) board[x][y] = pieceOnSquare;
         return isSafe;
     }
 
-    willBeCheck(piece, x, y) {
+    moveEndangerKing(piece, x, y) {
         board[piece.x][piece.y] = undefined;
         const pieceOnDestination = board[x][y];
         board[x][y] = piece;
-        const willBeCheck = this.isSafe(this.x, this.y);
+        const willBeCheck = !this.isSafe(this.x, this.y);
         board[piece.x][piece.y] = piece;
         board[x][y] = pieceOnDestination;
         return willBeCheck;
+    }
+
+    underCheck() {
+        return !this.isSafe(this.x, this.y);
     }
 
     validateInput(x, y, side) {
@@ -91,6 +111,66 @@ class King extends Piece {
         if (side !== 'white' && side !== 'black') {
             throw `Wrong value of parameter side: ${side}`;
         }
+    }
+
+    detectCastle() {
+        const possibleMoves = [];
+        const rooks = findRooks(this);
+
+        if (!this.isSafe(this.x, this.y) || this.hasMoved) return [];
+
+        for (let i = 0; i < rooks.length; i++) {
+            if (rooks[i] && pathClear(rooks[i], this)) {
+                possibleMoves.push(`${this.x},${this.y > rooks[i].y ? this.y - 2 : this.y + 2}`);
+            }
+        }
+
+        return possibleMoves;
+
+        function pathClear(piece, king) {
+            const direction = piece.y < king.y ? -1 : 1;
+            let y = king.y + direction;
+
+            while (y !== piece.y) {
+                if (king.pieceOnSquare(king.x, y) && king.isSafe(king.x, y)) return false;
+                y += direction;
+            }
+
+            return true;
+        }
+
+        function findRooks(king) {
+            const rooks = [];
+            for (let row of board) {
+                for (let piece of row) {
+                    if (piece && piece.side === king.side && piece.name === 'rook' && !piece.hasMoved)
+                        rooks.push(piece);
+                }
+            }
+            return rooks;
+        }
+    }
+
+    hasAnyAvailableMove() {
+        for (const row of board) {
+            for (const piece of row) {
+                if (piece && piece.side === this.side) {
+                    const moves = piece.findLegalMoves();
+
+                    if (moves.length > 0) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    castle(rook, rookNewY) {
+        board[rook.x][rook.y] = null;
+        document.getElementById(`${rook.x},${rook.y}`).innerHTML = '';
+        rook.x = this.x;
+        rook.y = rookNewY;
+        board[rook.x][rook.y] = rook;
+        document.getElementById(`${rook.x},${rook.y}`).innerHTML = rook.display;
     }
 }
 

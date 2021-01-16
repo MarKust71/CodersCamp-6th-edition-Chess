@@ -6,7 +6,10 @@
     "scripts": {
         "start": "webpack serve --watch",
         "build": "webpack --mode production",
-        "prettier:fix": "prettier -w .",
+        "prettier": "prettier --check ./src",
+        "lint": "eslint ./src",
+        "prettier:fix": "prettier --write ./src",
+        "lint:fix": "eslint --fix ./src",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -25,7 +28,8 @@
     },
     "homepage": "/",
     "dependencies": {
-        "@babel/polyfill": "^7.12.1"
+        "@babel/polyfill": "^7.12.1",
+        "core-js": "^2.6.12"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.10",
