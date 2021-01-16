@@ -1,4 +1,5 @@
 import King from './pieces/king';
+import Queen from './pieces/queen';
 import Pawn from './pieces/pawn';
 import Knight from './pieces/knight';
 import Rook from './pieces/rook';
@@ -24,6 +25,11 @@ const kingWhite = new King(-1, -1, 'white');
 const kingBlack = new King(-1, -1, 'black');
 board[kingWhite.x][kingWhite.y] = kingWhite;
 board[kingBlack.x][kingBlack.y] = kingBlack;
+
+const queenWhite = new Queen(-1, -1, 'white');
+const queenBlack = new Queen(-1, -1, 'black');
+board[queenWhite.x][queenWhite.y] = queenWhite;
+board[queenBlack.x][queenBlack.y] = queenBlack;
 
 let rookWhite = new Rook(7, 0, 'white');
 board[rookWhite.x][rookWhite.y] = rookWhite;
