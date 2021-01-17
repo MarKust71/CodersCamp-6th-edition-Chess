@@ -2,7 +2,7 @@ import gameHistory from './gameHistory';
 import { boardSetup } from './board';
 import setup from './setup';
 
-export function winnerDialogBox() {
+export const winnerDialogBox = () => {
     const wrapper = document.createElement('div');
     const dialogBox = document.createElement('div');
     const message = document.createElement('p');
@@ -34,6 +34,6 @@ export function winnerDialogBox() {
         boardSetup();
         setup();
     }
-}
+};
 
 export default winnerDialogBox;
