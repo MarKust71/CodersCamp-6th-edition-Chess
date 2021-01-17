@@ -204,10 +204,10 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    height: 200px;
-    background: black;
-    color: white;
+    height: 240px;
     font-size: 25px;
+    border: solid 2px black;
+    background-color: #efeaea;
 }
 
 .checkmate-box > p:first-letter {
@@ -218,6 +218,11 @@ body {
     font-size: 1.5em;
     border: 0;
     margin: 0;
+}
+
+.checkmate-box > button {
+    margin-top: 1.5rem;
+    font-size: 2rem;
 }
 
 @media (max-width: 600px) {
