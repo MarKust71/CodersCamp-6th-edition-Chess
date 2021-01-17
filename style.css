@@ -29,7 +29,6 @@ body {
     outline: 2px solid black;
 }
 .square {
-    /* border: 1px darkslategrey solid; */
     width: 10vh;
     height: 10vh;
     text-align: center;
@@ -42,7 +41,6 @@ body {
 }
 .dark {
     background: rgb(107, 65, 3);
-    /* background:rgb(43, 43, 43); */
 }
 .black {
     color: black;
@@ -52,6 +50,7 @@ body {
 }
 .possibleMove {
     background: rgb(238, 238, 36);
+    /*transition: background-color 1s;*/
 }
 
 /* ========ostylowanie gameplaySidebar ======== */

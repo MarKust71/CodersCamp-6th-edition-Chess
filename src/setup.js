@@ -1,6 +1,6 @@
 import touched from './touched';
 import board from './board';
-import { startSetup } from './startSetupBox';
+// import { timer } from './startSetupBox';
 import { gameplaySidebar } from './gameplaySidebar';
 
 const setup = () => {
@@ -18,7 +18,6 @@ const setup = () => {
         }
     }
     gameplaySidebar();
-    startSetup();
 };
 
 export default setup;

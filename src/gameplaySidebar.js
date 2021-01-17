@@ -1,3 +1,15 @@
+import { timer } from './startSetupBox';
+
+const formatTime = (clockTimer) => {
+    let time;
+    if (clockTimer == 10) {
+        time = `${clockTimer}:00`;
+    } else {
+        time = `0${clockTimer}:00`;
+    }
+    return time;
+};
+
 export const gameplaySidebar = () => {
     const wrapper = document.getElementById('wrapper');
     const gameplaySidebar = document.createElement('div');
@@ -8,7 +20,7 @@ export const gameplaySidebar = () => {
     blackPlayerTimerContainer.className = 'blackPlayerTimerContainer';
     const blackPlayerTimer = document.createElement('div');
     blackPlayerTimer.className = 'blackPlayerTimer';
-    blackPlayerTimer.innerHTML = '05:00';
+    blackPlayerTimer.innerHTML = formatTime(timer.clockTimer);
     blackPlayerTimerContainer.appendChild(blackPlayerTimer);
     gameplaySidebar.appendChild(blackPlayerTimerContainer);
 
@@ -26,7 +38,8 @@ export const gameplaySidebar = () => {
     whitePlayerTimerContainer.className = 'whitePlayerTimerContainer';
     const whitePlayerTimer = document.createElement('div');
     whitePlayerTimer.className = 'whitePlayerTimer';
-    whitePlayerTimer.innerHTML = '05:00';
+    console.log(timer.clockTimer);
+    whitePlayerTimer.innerHTML = formatTime(timer.clockTimer);
     whitePlayerTimerContainer.appendChild(whitePlayerTimer);
     gameplaySidebar.appendChild(whitePlayerTimerContainer);
 };

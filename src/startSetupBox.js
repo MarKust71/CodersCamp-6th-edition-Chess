@@ -1,4 +1,5 @@
-export const startSetup = () => {
+export const timer = (function startSetup() {
+    let clockTimer = 10;
     const wrapper = document.getElementById('wrapper');
     const startSetupBox = document.createElement('div');
     startSetupBox.className = 'startSetupBox';
@@ -29,7 +30,6 @@ export const startSetup = () => {
     for (let i = 0; i < playTimeStringName.length; i++) {
         const timeOption = document.createElement('option');
         timeOption.value = playTime[i];
-        console.log(timeOption.value);
         timeOption.text = playTimeStringName[i];
         playTimeSelect.appendChild(timeOption);
     }
@@ -42,7 +42,12 @@ export const startSetup = () => {
     wrapper.appendChild(startSetupBox);
 
     startGameButton.addEventListener('click', () => {
+        clockTimer = document.getElementById('playTimeSelect').value;
+        console.log(clockTimer);
         wrapper.removeChild(startSetupBox);
         wrapper.removeChild(startCover);
     });
-};
+    return {
+        clockTimer,
+    };
+})();
