@@ -1,3 +1,5 @@
+import { updatePlayerTimer } from './gameplaySidebar';
+
 export const timer = (function startSetup() {
     let clockTimer = 10;
     const wrapper = document.getElementById('wrapper');
@@ -43,7 +45,10 @@ export const timer = (function startSetup() {
 
     startGameButton.addEventListener('click', () => {
         clockTimer = document.getElementById('playTimeSelect').value;
-        console.log(clockTimer);
+
+        updatePlayerTimer(document.getElementById('whitePlayerTimer'), clockTimer);
+        updatePlayerTimer(document.getElementById('blackPlayerTimer'), clockTimer);
+
         wrapper.removeChild(startSetupBox);
         wrapper.removeChild(startCover);
     });

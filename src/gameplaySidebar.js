@@ -20,7 +20,11 @@ export const gameplaySidebar = () => {
     blackPlayerTimerContainer.className = 'blackPlayerTimerContainer';
     const blackPlayerTimer = document.createElement('div');
     blackPlayerTimer.className = 'blackPlayerTimer';
-    blackPlayerTimer.innerHTML = formatTime(timer.clockTimer);
+    blackPlayerTimer.id = 'blackPlayerTimer';
+
+    updatePlayerTimer(blackPlayerTimer, timer.clockTimer);
+    // blackPlayerTimer.innerHTML = formatTime(timer.clockTimer);
+
     blackPlayerTimerContainer.appendChild(blackPlayerTimer);
     gameplaySidebar.appendChild(blackPlayerTimerContainer);
 
@@ -38,8 +42,15 @@ export const gameplaySidebar = () => {
     whitePlayerTimerContainer.className = 'whitePlayerTimerContainer';
     const whitePlayerTimer = document.createElement('div');
     whitePlayerTimer.className = 'whitePlayerTimer';
-    console.log(timer.clockTimer);
-    whitePlayerTimer.innerHTML = formatTime(timer.clockTimer);
+    whitePlayerTimer.id = 'whitePlayerTimer';
+
+    updatePlayerTimer(whitePlayerTimer, timer.clockTimer);
+    // whitePlayerTimer.innerHTML = formatTime(timer.clockTimer);
+
     whitePlayerTimerContainer.appendChild(whitePlayerTimer);
     gameplaySidebar.appendChild(whitePlayerTimerContainer);
+};
+
+export const updatePlayerTimer = (playerTimer, time) => {
+    playerTimer.innerHTML = formatTime(time);
 };
