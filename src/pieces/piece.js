@@ -1,5 +1,6 @@
 import board from '../board';
 import { gameHistory, Move } from '../gameHistory';
+import winnerDialogBox from '../winnerDialogBox';
 
 class Piece {
     constructor(x, y, side) {
@@ -46,6 +47,7 @@ class Piece {
 
         if (move.check && !enemyKing.hasAnyAvailableMove()) {
             gameHistory.history[gameHistory.history.length - 1].checkMate = true;
+            winnerDialogBox();
         }
     }
 
