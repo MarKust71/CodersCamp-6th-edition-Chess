@@ -1,13 +1,11 @@
 import { timer } from './startSetupBox';
 
-const formatTime = (clockTimer) => {
-    let time;
-    if (clockTimer == 10) {
-        time = `${clockTimer}:00`;
-    } else {
-        time = `0${clockTimer}:00`;
-    }
-    return time;
+export const setupTimerTime = (clockTimer) => {
+    let timeLeft;
+    let minutes = Math.floor(clockTimer / 60);
+    let seconds = clockTimer % 60;
+    seconds >= 10 ? (timeLeft = `0${minutes}:${seconds}`) : (timeLeft = `0${minutes}:0${seconds}`);
+    return timeLeft;
 };
 
 export const gameplaySidebar = () => {
@@ -20,7 +18,8 @@ export const gameplaySidebar = () => {
     blackPlayerTimerContainer.className = 'blackPlayerTimerContainer';
     const blackPlayerTimer = document.createElement('div');
     blackPlayerTimer.className = 'blackPlayerTimer';
-    blackPlayerTimer.innerHTML = formatTime(timer.clockTimer);
+    blackPlayerTimer.id = 'blackPlayerTimer';
+    updatePlayerTimer(blackPlayerTimer, timer.clockTimer);
     blackPlayerTimerContainer.appendChild(blackPlayerTimer);
     gameplaySidebar.appendChild(blackPlayerTimerContainer);
 
@@ -28,18 +27,21 @@ export const gameplaySidebar = () => {
     gameHistoryRecording.className = 'gameHistoryRecording';
     const recordingListMoves = document.createElement('ol');
     recordingListMoves.className = 'recordingListMoves';
-    const recordingMovesHistory = document.createTextNode(`history`);
+    const recordingMovesHistory = document.createTextNode('history');
     recordingListMoves.appendChild(recordingMovesHistory);
     gameHistoryRecording.appendChild(recordingListMoves);
-
     gameplaySidebar.appendChild(gameHistoryRecording);
 
     const whitePlayerTimerContainer = document.createElement('div');
     whitePlayerTimerContainer.className = 'whitePlayerTimerContainer';
     const whitePlayerTimer = document.createElement('div');
     whitePlayerTimer.className = 'whitePlayerTimer';
-    console.log(timer.clockTimer);
-    whitePlayerTimer.innerHTML = formatTime(timer.clockTimer);
+    whitePlayerTimer.id = 'whitePlayerTimer';
+    updatePlayerTimer(whitePlayerTimer, timer.clockTimer);
     whitePlayerTimerContainer.appendChild(whitePlayerTimer);
     gameplaySidebar.appendChild(whitePlayerTimerContainer);
+};
+
+export const updatePlayerTimer = (playerTimer, time) => {
+    playerTimer.innerHTML = setupTimerTime(time);
 };
