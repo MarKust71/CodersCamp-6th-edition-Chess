@@ -27,7 +27,7 @@
     "bugs": {
         "url": "/"
     },
-    "homepage": "/",
+    "homepage": "/public",
     "dependencies": {
         "@babel/polyfill": "^7.12.1",
         "core-js": "^2.6.12"
