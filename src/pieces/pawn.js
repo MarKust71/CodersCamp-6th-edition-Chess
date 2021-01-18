@@ -12,7 +12,6 @@ class Pawn extends Piece {
         this.name = 'pawn';
         this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
         this.direction = this.side === 'white' ? -1 : 1;
-
     }
 
     findLegalMoves() {
@@ -33,11 +32,11 @@ class Pawn extends Piece {
         const canMove = gameHistory.whoseTurn() === this.side;
 
         const checkKingIsSafe = (coords) => {
-            if (!(canMove && sameSideKing.moveEndangerKing(this, coords[0], coords[2]))){
-                return true
+            if (!(canMove && sameSideKing.moveEndangerKing(this, coords[0], coords[2]))) {
+                return true;
             }
             return false;
-        }
+        };
 
         if (!(enemy || ownInFront)) {
             if (this.x === (this.side === 'white' ? 6 : 1)) {
