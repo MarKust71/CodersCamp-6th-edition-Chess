@@ -48,7 +48,6 @@ export const timer = (function () {
     wrapper.appendChild(startSetupBox);
 
     startGameButton.addEventListener('click', () => {
-        // console.log("from startSetupBox listener: ", document.getElementById('playTimeSelect').value)
         clockTimer = playTime[document.getElementById('playTimeSelect').value] * 60;
         updatePlayerTimer(document.getElementById('whitePlayerTimer'), clockTimer);
         updatePlayerTimer(document.getElementById('blackPlayerTimer'), clockTimer);
