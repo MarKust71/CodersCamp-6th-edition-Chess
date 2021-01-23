@@ -1,4 +1,5 @@
 import Piece from './piece';
+import gameHistory from '../gameHistory';
 
 class Queen extends Piece {
     constructor(x, y, side) {
@@ -16,6 +17,7 @@ class Queen extends Piece {
 
     findLegalMoves() {
         const possibleMoves = [];
+
         const directions = [
             [1, 0],
             [-1, 0],
@@ -35,10 +37,13 @@ class Queen extends Piece {
     }
 
     checkLine(dx, dy, possibleMoves) {
+        const sameSideKing = this.findKing(this.side);
+        const canMove = gameHistory.whoseTurn() === this.side;
         for (let i = 1; i < 8; i++) {
             let xx = this.x + dx * i;
             let yy = this.y + dy * i;
             if (xx >= 0 && xx < 8 && yy >= 0 && yy < 8) {
+                if (canMove && sameSideKing.moveEndangerKing(this, xx, yy)) continue;
                 if (this.getSquareStatus(xx, yy) == 0) {
                     // empty square
                     possibleMoves.push(`${xx},${yy}`);
