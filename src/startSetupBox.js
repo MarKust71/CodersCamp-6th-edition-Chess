@@ -45,4 +45,56 @@ export const startSetup = () => {
         wrapper.removeChild(startSetupBox);
         wrapper.removeChild(startCover);
     });
+
+    //============= animi MOVE ===============
+
+    const animBox = document.createElement('div');
+    animBox.classList.add('animBox');
+    const boardDiv = document.getElementById('board');
+    //boardDiv.appendChild(animBox);
+    wrapper.appendChild(animBox);
+
+    animPiece(0,0,1,5);
+
+    function animPiece(xx1,yy1,xx2,yy2){
+        let x1 = xx1*10 + 10; //- 97.5;
+        let y1 = yy1*10 +10; //-35;
+        let x2 = xx2*10 + 10;
+        let y2 = yy2*10 + 10;
+
+        const nF = 25;          // liczba klatek ruchu;
+        let dx = (x2-x1)/nF;
+        let dy = (y2-y1)/nF;
+        
+        console.log(xx1,yy1,xx2,yy2)
+
+        const figura = document.createElement('div');
+        figura.classList.add('bierka');
+      //  wrapper.appendChild(figura);
+        animBox.appendChild(figura);
+        //figura.setAttribute("style", "left: -97.5vh; top: 35vh;");
+        figura.setAttribute("style", `left: ${x1}vh; top: ${y1}vh;`);
+        if(document.getElementById(`${yy1},${xx1}`).firstElementChild){
+            figura.appendChild(document.getElementById(`${yy1},${xx1}`).firstElementChild);
+        }
+        
+
+        let ii=0;
+        let xx= x1; //-97.5;
+        let yy= y1; //35;
+        let myTimer = setInterval(animMove, 50 );
+
+        
+        function animMove(){
+            ii++;
+            xx = xx+dx;
+            yy = yy+dy;
+            figura.setAttribute("style", `left: ${xx}vh; top: ${yy}vh;`);
+            if(ii>= nF) clearInterval(myTimer);
+        }
+
+      
+        // myVar = setInterval(function, milliseconds);
+        // clearInterval(myVar);
+    }
 };

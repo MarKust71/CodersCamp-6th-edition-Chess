@@ -1,10 +1,17 @@
 import Piece from './piece';
+import gameHistory from '../gameHistory';
 
 class Queen extends Piece {
     constructor(x, y, side) {
         super(x, y, side);
         this.name = 'queen';
-        this.display = `<i class="fas fa-chess-queen ${side}"></i>`;
+        this.display = `<i class="fas fa-chess-queen ${side} test"></i>`;
+       // document.getElementById(`${x},${y}`).classList.add(".test");
+       // document.getElementById("4,7").classList.add(".test");
+       // document.querySelector("board").classList.add(".test");
+       // document.getElementById("board").classList.add(".test");
+        let elem = document.getElementById(`${x},${y}`);
+        //elem.classList.add(".test");
         if (x === -1 || y === -1) {
             this.x = side === 'white' ? 7 : 0;
             this.y = 3;
@@ -35,10 +42,13 @@ class Queen extends Piece {
     }
 
     checkLine(dx, dy, possibleMoves) {
+        const sameSideKing = this.findKing(this.side);
+        const canMove = gameHistory.whoseTurn() === this.side;
         for (let i = 1; i < 8; i++) {
             let xx = this.x + dx * i;
             let yy = this.y + dy * i;
             if (xx >= 0 && xx < 8 && yy >= 0 && yy < 8) {
+                //if (canMove && sameSideKing.moveEndangerKing(this, this.x + i, this.y)) continue;
                 if (this.getSquareStatus(xx, yy) == 0) {
                     // empty square
                     possibleMoves.push(`${xx},${yy}`);

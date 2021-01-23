@@ -10,6 +10,16 @@ const touched = (e) => {
 
     if (!board[x][y] || gameHistory.whoseTurn() !== board[x][y].side) return 0;
 
+    //--------------------- RAF  -----------------
+    //let elem = document.getElementById(`${x},${y}`);
+    //elem.classList.add(".test");
+    let elem = document.getElementById("1,7").firstElementChild;
+    elem.classList.add("test");
+   //elem.style.left = "1vh";
+    console.log("POSITIOBN: ", elem.style);
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
     for (let coords of squaresState) {
         const square = document.getElementById(coords);
         square.classList.remove(POSSIBLE_MOVES_CLASS);

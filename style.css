@@ -28,6 +28,7 @@ body {
     min-height: 80vh;
     outline: 2px solid black;
 }
+
 .square {
     /* border: 1px darkslategrey solid; */
     width: 10vh;
@@ -52,6 +53,7 @@ body {
 }
 .possibleMove {
     background: rgb(238, 238, 36);
+    opacity: .8;
 }
 
 /* ========ostylowanie gameplaySidebar ======== */
@@ -100,6 +102,7 @@ body {
 
 /* ======== ostylowanie promocja, start gry i koniec ======== */
 .startCover,
+.animBox,
 .promoCover {
     width: calc(100vh + 15vw);
     height: 100vh;
@@ -107,6 +110,7 @@ body {
     opacity: 0.4;
     position: fixed;
     z-index: 5;
+    border: 3px dotted blue;
 }
 .startSetupBox,
 .promoChoice {
@@ -380,4 +384,40 @@ body {
     .promoChoiceItem {
         font-size: 4vh;
     }
+}
+
+.test{
+  /*  border: 5px solid rgb(238, 0, 36);  */
+    box-shadow: inset 0 0 5px rgb(0, 0, 10);
+
+}
+
+.animBox_OLD{
+    padding: 0;
+    position: relative;    
+    outline: 2px dotted red;
+    width: 80vh;
+    height: 80vh;
+    z-index: 300;
+    background-color: rgba(0,255,0,.3);
+    top:-40vh;
+    left:40vh;
+}
+
+.animBox_{
+    background-color: rgba(0,255,0,.3);
+}
+
+.bierka{
+    width:10vh;
+    height:1vh;
+    border-radius: 50%;
+    background-color: red;
+    position: relative;
+  /*  left:-97.5vh;
+    top: 35vh;*/
+    z-index: 20;
+    text-align: center;
+    line-height: 10vh;
+    font-size: 7.5vh;
 }
