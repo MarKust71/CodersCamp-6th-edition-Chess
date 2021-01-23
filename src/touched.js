@@ -1,5 +1,6 @@
 import board from './board';
 import gameHistory from './gameHistory';
+import { runTimer } from './runTimer';
 
 let squaresState = [];
 
@@ -48,6 +49,7 @@ const touched = (e) => {
                 document.getElementById(`${x},${y}`).addEventListener('click', movePiece);
             }
         }
+        runTimer.setOpponentsTimer();
     }
 
     function movePiece(event) {

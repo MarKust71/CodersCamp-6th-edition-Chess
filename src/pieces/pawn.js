@@ -4,6 +4,7 @@ import Queen from '../pieces/queen';
 import Knight from '../pieces/knight';
 import Rook from '../pieces/rook';
 import board from '../board';
+import { gameHistory } from '../gameHistory';
 
 class Pawn extends Piece {
     constructor(x, y, side, board) {
@@ -27,26 +28,35 @@ class Pawn extends Piece {
         const moveByOne = `${x + v},${y}`;
         const moveCrossLeft = `${x + v},${y - 1}`;
         const moveCrossRight = `${x + v},${y + 1}`;
+        const sameSideKing = this.findKing(this.side);
+        const canMove = gameHistory.whoseTurn() === this.side;
+
+        const checkKingIsSafe = (coords) => {
+            if (!(canMove && sameSideKing.moveEndangerKing(this, coords[0], coords[2]))) {
+                return true;
+            }
+            return false;
+        };
 
         if (!(enemy || ownInFront)) {
             if (this.x === (this.side === 'white' ? 6 : 1)) {
                 if (enemyByTwo) {
-                    possibleMoves.push(moveByOne);
+                    if (checkKingIsSafe(moveByOne)) possibleMoves.push(moveByOne);
                 } else {
-                    possibleMoves.push(moveByOne);
-                    possibleMoves.push(moveByTwo);
+                    if (checkKingIsSafe(moveByOne)) possibleMoves.push(moveByOne);
+                    if (checkKingIsSafe(moveByTwo)) possibleMoves.push(moveByTwo);
                 }
             } else {
                 if (this.x !== (this.side === 'white' ? 0 : 7)) {
-                    possibleMoves.push(moveByOne);
+                    if (checkKingIsSafe(moveByOne)) possibleMoves.push(moveByOne);
                 }
             }
         }
         if (toCaptureOnRight && this.side !== toCaptureOnRight.side) {
-            possibleMoves.push(moveCrossRight);
+            if (checkKingIsSafe(moveCrossRight)) possibleMoves.push(moveCrossRight);
         }
         if (toCaptureOnLeft && this.side !== toCaptureOnLeft.side) {
-            possibleMoves.push(moveCrossLeft);
+            if (checkKingIsSafe(moveCrossLeft)) possibleMoves.push(moveCrossLeft);
         }
         return possibleMoves;
     }

@@ -1,4 +1,11 @@
-export const startSetup = () => {
+import { updatePlayerTimer } from './gameplaySidebar';
+import { runTimer } from './runTimer';
+import gameHistory from './gameHistory';
+
+export const timer = (function () {
+    let clockTimer = 300;
+    const side = gameHistory.whoseTurn();
+
     const wrapper = document.getElementById('wrapper');
     const startSetupBox = document.createElement('div');
     startSetupBox.className = 'startSetupBox';
@@ -13,8 +20,8 @@ export const startSetup = () => {
     setupBoxTitle.appendChild(title);
     startSetupBox.appendChild(setupBoxTitle);
 
-    const playTime = [1, 3, 5, 10];
-    const playTimeStringName = ['1 minute', '3 minutes', '5 minutes', '10 minutes'];
+    const playTime = [1, 3, 5, 8];
+    const playTimeStringName = ['1 minute', '3 minutes', '5 minutes', '8 minutes'];
     const playTimeForm = document.createElement('div');
     playTimeForm.id = 'playTimeForm';
     const playTimeTitle = document.createTextNode('Round time:  ');
@@ -28,8 +35,7 @@ export const startSetup = () => {
 
     for (let i = 0; i < playTimeStringName.length; i++) {
         const timeOption = document.createElement('option');
-        timeOption.value = playTime[i];
-        console.log(timeOption.value);
+        timeOption.value = i.toString();
         timeOption.text = playTimeStringName[i];
         playTimeSelect.appendChild(timeOption);
     }
@@ -42,8 +48,12 @@ export const startSetup = () => {
     wrapper.appendChild(startSetupBox);
 
     startGameButton.addEventListener('click', () => {
+        clockTimer = playTime[document.getElementById('playTimeSelect').value] * 60;
+        updatePlayerTimer(document.getElementById('whitePlayerTimer'), clockTimer);
+        updatePlayerTimer(document.getElementById('blackPlayerTimer'), clockTimer);
         wrapper.removeChild(startSetupBox);
         wrapper.removeChild(startCover);
+        runTimer.runFirstTimer(side, clockTimer);
     });
 
     //============= animi MOVE ===============
@@ -98,3 +108,7 @@ export const startSetup = () => {
         // clearInterval(myVar);
     }
 };
+    return {
+        clockTimer,
+    };
+})();
