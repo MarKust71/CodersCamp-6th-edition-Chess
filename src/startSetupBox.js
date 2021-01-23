@@ -62,9 +62,9 @@ export const timer = (function () {
     animBox.classList.add('animBox');
     const boardDiv = document.getElementById('board');
     //boardDiv.appendChild(animBox);
-    wrapper.appendChild(animBox);
+  //  wrapper.appendChild(animBox);
 
-    animPiece(0,0,1,5);
+ //   animPiece(0,0,1,5);
 
     function animPiece(xx1,yy1,xx2,yy2){
         let x1 = xx1*10 + 10; //- 97.5;
@@ -107,7 +107,7 @@ export const timer = (function () {
         // myVar = setInterval(function, milliseconds);
         // clearInterval(myVar);
     }
-};
+
     return {
         clockTimer,
     };
