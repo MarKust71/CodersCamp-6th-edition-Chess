@@ -1,5 +1,6 @@
 import Piece from './piece';
 import board from '../board';
+import gameHistory from '../gameHistory';
 
 class Rook extends Piece {
     constructor(x, y, side) {
@@ -10,9 +11,12 @@ class Rook extends Piece {
 
     findLegalMoves() {
         const possibleMoves = [];
+        const sameSideKing = this.findKing(this.side);
+        const canMove = gameHistory.whoseTurn() === this.side;
 
         for (let i = 1; i <= 7; i++) {
             if (this.x + i <= 7) {
+                if (canMove && sameSideKing.moveEndangerKing(this, this.x + i, this.y)) continue;
                 if (board[this.x + i][this.y]) {
                     if (board[this.x + i][this.y].side !== this.side) {
                         possibleMoves.push(`${this.x + i},${this.y}`);
@@ -26,6 +30,7 @@ class Rook extends Piece {
 
         for (let i = 1; i <= 7; i++) {
             if (this.x - i >= 0) {
+                if (canMove && sameSideKing.moveEndangerKing(this, this.x - i, this.y)) continue;
                 if (board[this.x - i][this.y]) {
                     if (board[this.x - i][this.y].side !== this.side) {
                         possibleMoves.push(`${this.x - i},${this.y}`);
@@ -39,6 +44,7 @@ class Rook extends Piece {
 
         for (let i = 1; i <= 7; i++) {
             if (this.y + i <= 7) {
+                if (canMove && sameSideKing.moveEndangerKing(this, this.x, this.y + i)) continue;
                 if (board[this.x][this.y + i]) {
                     if (board[this.x][this.y + i].side !== this.side) {
                         possibleMoves.push(`${this.x},${this.y + i}`);
@@ -52,6 +58,7 @@ class Rook extends Piece {
 
         for (let i = 1; i <= 7; i++) {
             if (this.y - i >= 0) {
+                if (canMove && sameSideKing.moveEndangerKing(this, this.x, this.y - i)) continue;
                 if (board[this.x][this.y - i]) {
                     if (board[this.x][this.y - i].side !== this.side) {
                         possibleMoves.push(`${this.x},${this.y - i}`);
