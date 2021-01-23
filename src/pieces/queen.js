@@ -17,7 +17,7 @@ class Queen extends Piece {
 
     findLegalMoves() {
         const possibleMoves = [];
-        
+
         const directions = [
             [1, 0],
             [-1, 0],
